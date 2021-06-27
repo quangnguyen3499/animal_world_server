@@ -1,0 +1,25 @@
+# database
+DB_HOSTNAME: "db"
+DB_USERNAME: "root"
+DB_PASSWORD: "password"
+DB_PORT: "3306"
+PR_DATABASE_PASSWORD: ""
+
+# mailer
+HOST: "localhost:3000"
+SMTP_ADDRESS: "localhost"
+SMTP_PORT: "587"
+SMTP_DOMAIN: "domain"
+SMTP_AUTHENTICATION: "plain"
+SMTP_ADDRESS: "smtp.sendgrid.net"
+EMAIL_USERNAME: "apikey" #literal string
+EMAIL_SUPPORTER: "defaul_from_email@example.com"
+SYSTEM_ADMIN_EMAIL: "sys_admin@example.com"
+
+# redis
+REDIS_URL: "redis://localhost:6379/1"
+REDIS_PORT: "6379"
+REDIS_DB: "petcare_redis"
+
+#FE
+WEB_URL: "http://localhost:8080"

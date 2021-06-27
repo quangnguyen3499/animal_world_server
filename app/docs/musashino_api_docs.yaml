@@ -1,0 +1,2591 @@
+swagger: "2.0"
+info:
+  title: "Mushasino API development"
+  description: "Mushasino API development"
+  version: "1.0.0"
+host: "localhost"
+basePath: "/api/v1"
+securityDefinitions: 
+  access-token: 
+    type: "apiKey"
+    description: "API key to authorize requests. You should use access-token like `ddHirQ4Tgkz_A_KHp1lxwQ`."
+    name: "access-token"
+    in: "header"
+  client: 
+    type: "apiKey"
+    description: "API key to authorize requests. You should use client_id like `3_5J5vPnVgi7tCB20I_1cw`."
+    name: "client"
+    in: "header"
+  uid: 
+    type: "apiKey"
+    description: "API key to authorize requests. You should use uid to accept login"
+    name: "uid"
+    in: "header"
+tags:
+- name: "auth"
+  description: "auth company_admins"
+- name: "company_admin"
+  description: "company_admins"
+- name: "company"
+  description: "company"
+- name: "employee"
+  description: "employee"
+- name: "energizer"
+  description: "energizer for employee"
+- name: "shindan"
+  description: "shindan for employee"
+- name: "billing"
+  description: "total price per month"
+schemes:
+- "https"
+- "http"
+paths:
+  /company_admins/sign_in:
+    post:
+      tags:
+        - auth
+      summary: "Login"
+      description: "Login user"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: email
+          in: formData
+          description: email
+          required: true
+          type: string
+        - name: password
+          in: formData
+          description: password
+          required: true
+          type: string
+      responses:
+        '200':
+          description: 'sent success'
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                type: "object"
+                properties:
+                  user: 
+                    $ref: "#/components/schemas/CompanyAdmin"
+                  token:
+                    type: "object"
+                    properties:
+                      uid: 
+                        type: string
+                        example: "example@gmail.com"
+                      token:
+                        type: string
+                        example: "6vu3G69E6XbCD6Dx3iEK6Q"
+                      client_id:
+                        type: string
+                        example: "NqXX9V0wCbvcpY0H9l6mJg"
+                      expiry:
+                        type: integer
+                        example: 1613271776
+
+        '400':
+          description: "Update failed!"
+          schema:
+            $ref: '#/components/schemas/Invalid'
+                
+  /company_admins/sign_out:
+    delete:
+      tags:
+        - auth
+      summary: "Sign out"
+      description: "Sign out"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "204":
+          description: "sign out success"
+        
+        "401":
+          description: "sign out failed"
+          schema:
+            $ref: '#/components/schemas/Unauthenticated'  
+                
+  /company_admins:
+    post:
+      tags:
+        - company_admin
+      summary: "Signup"
+      description: "Signup"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: name
+          in: formData
+          description: company name
+          required: true
+          type: string
+        - name: address
+          in: formData
+          description: company address
+          required: true
+          type: string
+        - name: postcode
+          in: formData
+          description: postcode, 7digits
+          required: true
+          type: string
+        - name: tel
+          in: formData
+          description: company telephone number
+          required: true
+          type: string
+        - name: url
+          in: formData
+          description: company url
+          required: false
+          type: string
+        - name: daihyo_last_name
+          in: formData
+          description: daihyo_last_name
+          required: true
+          type: string
+        - name: daihyo_first_name
+          in: formData
+          description: daihyo_first_name
+          required: true
+          type: string
+        - name: daihyo_email
+          in: formData
+          description: daihyo_email
+          required: true
+          type: string
+        - name: daihyo_password
+          in: formData
+          description: daihyo_password
+          required: true
+          type: string
+      responses:
+        '200':
+          description: success
+          schema:
+            type: object
+            properties:
+              status_code:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                type: "object"
+                properties:
+                  company:
+                    $ref: "#/components/schemas/CompanyDetails"
+                  company_admin:
+                    $ref: "#/components/schemas/CompanyAdmin"
+                
+        '400':
+          description: failed
+          schema:
+            $ref: '#/components/schemas/Unacceptable'
+    
+  /company_admins/:id:
+    get:
+      tags:
+        - company_admin
+      summary: "Show"
+      description: "Get company admin"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/CompanyAdmin"
+                    
+        "400":
+          description: get failed
+          schema:
+            $ref: '#/components/schemas/Notfound'
+            
+    put:
+      tags:
+        - company_admin
+      summary: "Update"
+      description: "Update"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: first_name
+          in: formData
+          description: first name
+          required: true
+          type: string
+        - name: last_name
+          in: formData
+          description: last name
+          required: true
+          type: string
+        - name: email
+          in: formData
+          description: email
+          required: true
+          type: string
+        - name: role
+          in: formData
+          description: role
+          required: true
+          type: string
+          
+      responses:
+        "200":
+          description: "update successful!"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/CompanyAdmin"
+                    
+        "400":
+          description: email already exists
+          schema:
+            $ref: '#/components/schemas/Unacceptable'
+        
+        "404":
+          description: record not found
+          schema:
+            $ref: '#/components/schemas/Notfound'
+            
+    delete:
+      tags:
+        - company_admin
+      summary: "Delete"
+      description: "Delete company admins"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: "delete success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                type: string
+                example: ""
+        
+        "404":
+          description: "delete fail"
+          schema:
+            $ref: '#/components/schemas/Notfound'
+                  
+  /company_admins/user:
+    post:
+      tags:
+        - company_admin
+      summary: "Create"
+      description: "create company admin"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: email
+          in: formData
+          description: email company admin
+          required: true
+          type: string
+        - name: role
+          in: formData
+          description: role
+          required: true
+          type: string
+        - name: first_name
+          in: formData
+          description: first name
+          required: true
+          type: string
+        - name: last_name
+          in: formData
+          description: last name
+          required: true
+          type: string
+          
+      responses:
+        '200':
+          description: success
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example: 
+                  $ref: "#/components/examples/WaitingConfirm"
+              data:
+                $ref: "#/components/schemas/CompanyAdmin"
+                    
+        "400":
+          description: create failed
+          schema:
+            $ref: "#/components/schemas/Invalid"
+
+    get:
+      tags:
+        - company_admin
+      summary: "Index"
+      description: "Get company admins"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+      - name: page
+        in: formData
+        description: page
+        required: true
+        type: integer
+      - name: items
+        in: formData
+        description: items
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        email:
+                          type: string
+                        role:
+                          type: string
+                        company_id:
+                          type: string
+                    example:
+                    - id: 1
+                      first_name: "test1"
+                      last_name: "test1"
+                      email: "test1@example.com"
+                      role: "admin"
+                      company_id: 1
+                    - id: 2
+                      first_name: "test2"
+                      last_name: "test2"
+                      email: "test2@example.com"
+                      role: "worker"
+                      company_id: 2
+                  
+                  meta:
+                    type: object
+                    properties:
+                      items: 
+                        type: integer
+                        example: 10
+                      current_page:
+                        type: integer
+                        example: 2
+                      total_pages:
+                        type: integer
+                        example: 3
+            
+  /companies/:id/edit:
+    get:
+      tags:
+        - company
+      summary: "Show"
+      description: "Get company"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/CompanyDetails"
+
+  /employees:
+    post:
+      tags:
+        - employee
+      summary: "Create"
+      description: "Add employee"
+      consumes:                  
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: first_name
+          in: formData
+          description: first_name
+          required: true
+          type: string
+        - name: last_name
+          in: formData
+          description: last_name
+          required: true
+          type: string
+        - name: sex
+          in: formData
+          description: sex
+          required: true
+          type: string
+        - name: kubun
+          in: formData
+          description: kubun
+          required: true
+          type: string
+      responses:
+        '201':
+          description: 'register success'
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/Employee"
+
+        '400':
+          description: "Not Acceptable"
+          schema:
+            $ref: '#/components/schemas/Unacceptable'     
+            
+    delete:
+      tags:
+        - employee
+      summary: "Delete"
+      description: "Delete employee"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: "delete success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                type: string
+                example: ""
+        
+        "404":
+          description: "delete fail"
+          schema:
+            $ref: '#/components/schemas/Notfound' 
+                
+    get:
+      tags:
+        - employee
+      summary: "Index"
+      description: "Get employees"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+      - name: page
+        in: formData
+        description: page
+        required: true
+        type: integer
+      - name: items
+        in: formData
+        description: items
+        required: true
+        type: integer
+      - name: fullname
+        in: formData
+        description: full name
+        required: false
+        type: string
+      - name: sex
+        in: formData
+        description: sex
+        required: false
+        type: string
+      - name: kubun
+        in: formData
+        description: kubun
+        required: false
+        type: string
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        company_id:
+                          type: integer
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        sex:
+                          type: string
+                        kubun:
+                          type: string
+                        shindan_flag:
+                          type: string
+                        profile_pdf_url:
+                          type: string
+                        pdf_file_name:
+                          type: string
+                        created_at:
+                          type: string
+                        updated_at:
+                          type: string
+                    
+                    example:
+                    - id: 1
+                      company_id: 1
+                      first_name: "test1"
+                      last_name: "test1"
+                      sex: "male"
+                      kubun: "admin"
+                      shindan_flag: "true"
+                      profile_pdf_url: "xxx"
+                      pdf_file_name: "name_pdf"
+                      created_at: "2021/03/01"
+                      updated_at: "2021/03/01"
+                      
+                    - id: 2
+                      company_id: 2
+                      first_name: "test2"
+                      last_name: "test2"
+                      sex: "female"
+                      kubun: "worker"
+                      shindan_flag: "false"
+                      profile_pdf_url: "xxx"
+                      pdf_file_name: "name_pdf"
+                      created_at: "2020/03/01"
+                      updated_at: "2020/03/01"
+                      
+                  meta:
+                    type: object
+                    properties:
+                      items: 
+                        type: integer
+                        example: 10
+                      current_page:
+                        type: integer
+                        example: 2
+                      total_pages:
+                        type: integer
+                        example: 3
+      
+  /employees/:id:
+    put:
+      tags:
+        - employee
+      summary: "Update"
+      description: "Update"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: first_name
+          in: formData
+          description: first name
+          required: true
+          type: integer
+        - name: last_name
+          in: formData
+          description: last name
+          required: true
+          type: string
+        - name: sex
+          in: formData
+          description: sex
+          required: true
+          type: string
+        - name: kubun
+          in: formData
+          description: kubun
+          required: true
+          type: string
+
+      responses:
+        "200":
+          description: "update successful!"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/Employee"
+                    
+        "400":
+          description: wrong argument
+          schema:
+            $ref: '#/components/schemas/Invalid'
+        
+        "404":
+          description: record not found
+          schema:
+            $ref: '#/components/schemas/Notfound'
+            
+  /employees/:id/edit:    
+    get:
+      tags:
+        - employee
+      summary: Show
+      description: "Get employee edit"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/Employee"
+                                
+        "404":
+          description: "Record not found"
+          schema:
+            $ref: '#/components/schemas/Notfound'  
+            
+  /companies/:id:
+    put:
+      tags:
+        - company
+      summary: "Update"
+      description: "Update"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: name
+          in: formData
+          description: new company name
+          required: true
+          type: string
+        - name: address
+          in: formData
+          description: new company address
+          required: true
+          type: string
+        - name: postcode
+          in: formData
+          description: postcode area
+          required: true
+          type: string
+        - name: url
+          in: formData
+          description: website company
+          required: false
+          type: string
+        - name: tel
+          in: formData
+          description: phone number
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "update successfully"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/CompanyDetails"
+                    
+        '400':
+          description: update failed
+          schema:
+            $ref: '#/components/schemas/Invalid'
+            
+  /companies/:company_id/update_daihyo:
+    patch:
+      tags:
+        - company
+      summary: "Update"
+      description: "Update daihyo"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: daihyo_email
+          in: formData
+          description: daihyo email
+          required: true
+          type: string
+        - name: daihyo_first_name
+          in: formData
+          description: daihyo first name
+          required: true
+          type: string
+        - name: daihyo_last_name
+          in: formData
+          description: daihyo last name
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "Update successful"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/CompanyDetails"
+                    
+        '400':
+          description: update failed
+          schema:
+            $ref: '#/components/schemas/Invalid'
+    
+  /energizers/:id:
+    put:
+      tags:
+        - energizer
+      summary: "Update"
+      description: "Update"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: year
+          in: formData
+          description: year
+          required: true
+          type: string
+        - name: simple_react_answer
+          in: formData
+          description: ""
+          required: true
+          type: integer
+        - name: simple_react_miss
+          in: formData
+          description: ""
+          required: true
+          type: integer
+        - name: simple_react_fluc
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: hukugo1_answer
+          in: formData
+          description: ""
+          required: true
+          type: integer
+        - name: hukugo1_miss
+          in: formData
+          description: ""
+          required: true
+          type: integer
+        - name: hukugo1_fluc
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: hukugo2_answer
+          in: formData
+          description: ""
+          required: true
+          type: integer
+        - name: hukugo2_miss
+          in: formData
+          description: ""
+          required: true
+          type: integer
+        - name: hukugo2_fluc
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: hukugo3_answer
+          in: formData
+          description: ""
+          required: true
+          type: integer
+        - name: hukugo3_miss
+          in: formData
+          description: ""
+          required: true
+          type: integer
+        - name: hukugo3_fluc
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: hukugo_ave_answer
+          in: formData
+          description: ""
+          required: true
+          type: integer
+        - name: hukugo_ave_miss
+          in: formData
+          description: ""
+          required: true
+          type: integer
+        - name: hukugo_ave_fluc
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: yashin
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: otonashi
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: majime
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: gaikou
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: sewasuki
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: kisaku
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: inside_ave
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: brand_work
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: brand_office
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: brand_company
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: amuse_work
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: amuse_office
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: amuse_company
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: jituri_work
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: jituri_office
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: jituri_company
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: mind_work
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: mind_office
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: mind_company
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: body_kodo_work
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: body_kodo_office
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: body_kodo_company
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: jitugen_work
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: jitugen_office
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: jitugen_company
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: yasuragi_work
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: yasuragi_office
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: yasuragi_company
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: target_value_ave_work
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: target_value_ave_office
+          in: formData
+          description: ""
+          required: true
+          type: number
+        - name: target_value_ave_company
+          in: formData
+          description: ""
+          required: true
+          type: number
+        
+      responses:
+        '200':
+          description: 'update success'
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/Energizer"
+        
+        '400':    
+          description: update fail
+          schema:
+            $ref: '#/components/schemas/Invalid'
+  
+  /employees/:id/energizer:
+    get:
+      tags:
+        - energizer
+      summary: "Show"
+      description: "Get details energizer"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+        - name: year
+          in: formData
+          description: year
+          required: true
+          type: string
+      responses:
+        '200':
+          description: 'get success'
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/Energizer"
+
+        '404':
+          description: "Get failed!"
+          schema:
+            $ref: "#/components/schemas/Notfound"
+            
+  /employees/:id/energizers:
+    get:
+      tags:
+        - energizer
+      summary: "Index"
+      description: "Get details energizer"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: 'get success'
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id: 
+                      type: integer
+                    employee_id:
+                      type: integer
+                    year:
+                      type: string
+                    simple_react_answer:
+                      type: integer
+                    simple_react_miss:
+                      type: integer
+                    simple_react_fluc:
+                      type: number
+                    hukugo1_answer:
+                      type: integer
+                    hukugo1_miss:
+                      type: integer
+                    hukugo1_fluc:
+                      type: number
+                    hukugo2_answer:
+                      type: integer
+                    hukugo2_miss:
+                      type: integer
+                    hukugo2_fluc:
+                      type: number
+                    hukugo3_answer:
+                      type: integer
+                    hukugo3_miss:
+                      type: integer
+                    hukugo3_fluc:
+                      type: number
+                    hukugo_ave_answer:
+                      type: integer
+                    hukugo_ave_miss:
+                      type: integer
+                    hukugo_ave_fluc:
+                      type: number
+                    yashin:
+                      type: number
+                    otonashi:
+                      type: number
+                    majime:
+                      type: number
+                    gaikou:
+                      type: number
+                    sewasuki:
+                      type: number
+                    kisaku:
+                      type: number
+                    inside_ave:
+                      type: number
+                    brand_work:
+                      type: number
+                    brand_office:
+                      type: number
+                    brand_company:
+                      type: number
+                    amuse_work:
+                      type: number
+                    amuse_office:
+                      type: number
+                    amuse_company:
+                      type: number
+                    jituri_work:
+                      type: number
+                    jituri_office:
+                      type: number
+                    jituri_company:
+                      type: number
+                    mind_work:
+                      type: number
+                    mind_office:
+                      type: number
+                    mind_company:
+                      type: number
+                    body_kodo_work:
+                      type: number
+                    body_kodo_office:
+                      type: number
+                    body_kodo_company:
+                      type: number
+                    jitugen_work:
+                      type: number
+                    jitugen_office:
+                      type: number
+                    jitugen_company:
+                      type: number
+                    yasuragi_work:
+                      type: number
+                    yasuragi_office:
+                      type: number
+                    yasuragi_company:
+                      type: number
+                    target_value_ave_work:
+                      type: number
+                    target_value_ave_office:
+                      type: number
+                    target_value_ave_company:
+                      type: number
+                  
+                example:
+                  - id: 1
+                    employee_id: 1
+                    year: "2021"
+                    simple_react_answer: 1
+                    simple_react_miss: 1
+                    simple_react_fluc: 0.5
+                    hukugo1_answer: 1
+                    hukugo1_miss: 1
+                    hukugo1_fluc: 0.5
+                    hukugo2_answer: 1
+                    hukugo2_miss: 1
+                    hukugo2_fluc: 0.5
+                    hukugo3_answer: 1
+                    hukugo3_miss: 1
+                    hukugo3_fluc: 0.5
+                    hukugo_ave_answer: 1
+                    hukugo_ave_miss: 1
+                    hukugo_ave_fluc: 0.5
+                    yashin: 0.5
+                    otonashi: 0.5
+                    majime: 0.5
+                    gaikou: 0.5
+                    sewasuki: 0.5
+                    kisaku: 0.5
+                    inside_ave: 0.5
+                    brand_work: 0.5
+                    brand_office: 0.5
+                    brand_company: 0.5
+                    amuse_work: 0.5
+                    amuse_office: 0.5
+                    amuse_company: 0.5
+                    jituri_work: 0.5
+                    jituri_office: 0.5
+                    jituri_company: 0.5
+                    mind_work: 0.5
+                    mind_office: 0.5
+                    mind_company: 0.5
+                    body_kodo_work: 0.5
+                    body_kodo_office: 0.5
+                    body_kodo_company: 0.5
+                    jitugen_work: 0.5
+                    jitugen_office: 0.5
+                    jitugen_company: 0.5
+                    yasuragi_work: 0.5
+                    yasuragi_office: 0.5
+                    yasuragi_company: 0.5
+                    target_value_ave_work: 0.5
+                    target_value_ave_office: 0.5
+                    target_value_ave_company: 0.5
+                    
+                  - id: 2
+                    employee_id: 1
+                    year: "2020"
+                    simple_react_answer: 1
+                    simple_react_miss: 1
+                    simple_react_fluc: 0.5
+                    hukugo1_answer: 1
+                    hukugo1_miss: 1
+                    hukugo1_fluc: 0.5
+                    hukugo2_answer: 1
+                    hukugo2_miss: 1
+                    hukugo2_fluc: 0.5
+                    hukugo3_answer: 1
+                    hukugo3_miss: 1
+                    hukugo3_fluc: 0.5
+                    hukugo_ave_answer: 1
+                    hukugo_ave_miss: 1
+                    hukugo_ave_fluc: 0.5
+                    yashin: 0.5
+                    otonashi: 0.5
+                    majime: 0.5
+                    gaikou: 0.5
+                    sewasuki: 0.5
+                    kisaku: 0.5
+                    inside_ave: 0.5
+                    brand_work: 0.5
+                    brand_office: 0.5
+                    brand_company: 0.5
+                    amuse_work: 0.5
+                    amuse_office: 0.5
+                    amuse_company: 0.5
+                    jituri_work: 0.5
+                    jituri_office: 0.5
+                    jituri_company: 0.5
+                    mind_work: 0.5
+                    mind_office: 0.5
+                    mind_company: 0.5
+                    body_kodo_work: 0.5
+                    body_kodo_office: 0.5
+                    body_kodo_company: 0.5
+                    jitugen_work: 0.5
+                    jitugen_office: 0.5
+                    jitugen_company: 0.5
+                    yasuragi_work: 0.5
+                    yasuragi_office: 0.5
+                    yasuragi_company: 0.5
+                    target_value_ave_work: 0.5
+                    target_value_ave_office: 0.5
+                    target_value_ave_company: 0.5
+                    
+                  - id: 3
+                    employee_id: 1
+                    year: "2019"
+                    simple_react_answer: 1
+                    simple_react_miss: 1
+                    simple_react_fluc: 0.5
+                    hukugo1_answer: 1
+                    hukugo1_miss: 1
+                    hukugo1_fluc: 0.5
+                    hukugo2_answer: 1
+                    hukugo2_miss: 1
+                    hukugo2_fluc: 0.5
+                    hukugo3_answer: 1
+                    hukugo3_miss: 1
+                    hukugo3_fluc: 0.5
+                    hukugo_ave_answer: 1
+                    hukugo_ave_miss: 1
+                    hukugo_ave_fluc: 0.5
+                    yashin: 0.5
+                    otonashi: 0.5
+                    majime: 0.5
+                    gaikou: 0.5
+                    sewasuki: 0.5
+                    kisaku: 0.5
+                    inside_ave: 0.5
+                    brand_work: 0.5
+                    brand_office: 0.5
+                    brand_company: 0.5
+                    amuse_work: 0.5
+                    amuse_office: 0.5
+                    amuse_company: 0.5
+                    jituri_work: 0.5
+                    jituri_office: 0.5
+                    jituri_company: 0.5
+                    mind_work: 0.5
+                    mind_office: 0.5
+                    mind_company: 0.5
+                    body_kodo_work: 0.5
+                    body_kodo_office: 0.5
+                    body_kodo_company: 0.5
+                    jitugen_work: 0.5
+                    jitugen_office: 0.5
+                    jitugen_company: 0.5
+                    yasuragi_work: 0.5
+                    yasuragi_office: 0.5
+                    yasuragi_company: 0.5
+                    target_value_ave_work: 0.5
+                    target_value_ave_office: 0.5
+                    target_value_ave_company: 0.5
+                    
+        '404':
+          description: "Get failed!"
+          schema:
+            $ref: "#/components/schemas/Notfound"
+  
+  /employees/:employee_id/shindan_senkou:
+    post:
+      tags:
+        - shindan
+      summary: "Create"
+      description: "Create shindan senkou"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+      - name: year
+        in: formData
+        description: year
+        required: true
+        type: string
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/ShindanSenkou"
+                
+        '404':
+          description: "Create failed!"
+          schema:
+            $ref: "#/components/schemas/Notfound"
+                
+    get:
+      tags:
+        - shindan
+      summary: "Show"
+      description: "Get shindan"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+      - name: year
+        in: formData
+        description: year
+        required: true
+        type: string
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/ShindanSenkou"
+                
+  /billings:
+    get:
+      tags:
+        - billing
+      summary: "Index"
+      description: "Get billings"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+      - name: page
+        in: formData
+        description: page
+        required: true
+        type: integer
+      - name: items
+        in: formData
+        description: items
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        date:
+                          type: string
+                        fee:
+                          type: integer
+                        company_id:
+                          type: integer
+                        employee_count:
+                          type: integer
+                        senkou_count:
+                          type: integer
+                    
+                    example:
+                    - id: 1
+                      date: "2020/10"
+                      fee: 100000
+                      company_id: 1
+                      employee_count: 1
+                      senkou_count: 1
+                    - id: 1
+                      date: "2020/09"
+                      fee: 200000
+                      company_id: 2
+                      employee_count: 2
+                      senkou_count: 2
+                  
+                  meta:
+                    type: object
+                    properties:
+                      items: 
+                        type: integer
+                        example: 10
+                      current_page:
+                        type: integer
+                        example: 2
+                      total_pages:
+                        type: integer
+                        example: 3
+                      from: 
+                        type: integer
+                        example: 1
+                      to:
+                        type: integer
+                        example: 2
+                      prev:
+                        type: integer
+                        example: 1
+                      next:
+                        type: integer
+                        example: 3
+            
+  /admin/companies/:company_id/employees:                  
+    post:
+      tags:
+        - admin/employee
+      summary: "Create"
+      description: "create employee"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: sex
+          in: formData
+          description: sex
+          required: true
+          type: string
+        - name: kubun
+          in: formData
+          description: kubun
+          required: true
+          type: string
+        - name: first_name
+          in: formData
+          description: first name
+          required: true
+          type: string
+        - name: last_name
+          in: formData
+          description: last name
+          required: true
+          type: string
+          
+      responses:
+        "200":
+          description: success
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 201
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/Employee"
+                    
+        "400":
+          description: create failed
+          schema:
+            $ref: "#/components/schemas/Invalid"
+            
+  /admin/employees/:id/edit:
+    get:
+      tags:
+        - admin/employee
+      summary: "Edit"
+      description: "Get employee"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/Employee"
+                    
+        "404":
+          description: "Load failed!"
+          schema:
+            $ref: "#/components/schemas/Notfound"
+                   
+  /admin/employees/:id:     
+    put:
+      tags:
+        - admin/employee
+      summary: "Update"
+      description: "Update employee"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: first_name
+          in: formData
+          description: first name
+          required: true
+          type: integer
+        - name: last_name
+          in: formData
+          description: last name
+          required: true
+          type: string
+        - name: sex
+          in: formData
+          description: sex
+          required: true
+          type: string
+        - name: kubun
+          in: formData
+          description: kubun
+          required: true
+          type: string
+
+      responses:
+        "200":
+          description: "update successful!"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/Employee"
+                    
+        "400":
+          description: wrong argument
+          schema:
+            $ref: '#/components/schemas/Invalid'
+        
+        "404":
+          description: record not found
+          schema:
+            $ref: '#/components/schemas/Notfound'
+            
+    delete:
+      tags:
+        - admin/employee
+      summary: "Delete"
+      description: "Delete employee"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: "delete success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                type: string
+                example: ""
+        
+        "404":
+          description: "delete fail"
+          schema:
+            $ref: '#/components/schemas/Notfound' 
+            
+  /admin/companies/:id:    
+    get:
+      tags:
+        - admin/company
+      summary: Show
+      description: "Get company show"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/CompanyDetails"
+                    
+        "404":
+          description: "Record not found"
+          schema:
+            $ref: '#/components/schemas/Notfound'  
+  
+  /admin/companies/:id/employees:
+    get:
+      tags:
+        - admin/employee
+      summary: "Index"
+      description: "Get index employees"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+      - name: fullname
+        in: formData
+        description: full name filter
+        required: false
+        type: string
+      - name: page
+        in: formData
+        description: page
+        required: true
+        type: integer
+      - name: items
+        in: formData
+        description: items
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        company_id:
+                          type: integer
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        sex:
+                          type: string
+                        kubun:
+                          type: string
+                        profile_pdf_url:
+                          type: string
+                        pdf_filename:
+                          type: string
+                        shindan_flag:
+                          type: string
+                        created_at:
+                          type: string
+                        updated_at:
+                          type: string
+                    
+                    example:
+                    - id: 1
+                      company_id: 1
+                      first_name: "first1"
+                      last_name: "last1"
+                      sex: "male"
+                      kubun: "part_time"
+                      profile_pdf_url: "www.example1.com"
+                      pdf_filename: "file1"
+                      shindan_flag: "false"
+                      created_at: "2020/01/01"
+                      updated_at: "2020/01/01"
+                             
+                    - id: 2
+                      company_id: 1
+                      first_name: "first2"
+                      last_name: "last2"
+                      sex: "female"
+                      kubun: "full_time"
+                      profile_pdf_url: "www.example2.com"
+                      pdf_filename: "file2"
+                      shindan_flag: "true"
+                      created_at: "2021/01/01"
+                      updated_at: "2021/01/01"
+                  
+                  meta:
+                    type: object
+                    properties:
+                      items: 
+                        type: integer
+                        example: 10
+                      current_page:
+                        type: integer
+                        example: 2
+                      total_pages:
+                        type: integer
+                        example: 3
+          
+  /admin/employees/:employee_id/energizer:
+    get:
+      tags:
+        - admin/energizer
+      summary: "Show"
+      description: "Get energizer per year"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+      - name: year
+        in: formData
+        description: year
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                $ref: "#/components/schemas/Energizer"
+                
+  /admin/companies/:company_id/company_admins:
+    get:
+      tags:
+        - admin/company_admin
+      summary: "Index"
+      description: "Get company admins"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: 
+      - name: page
+        in: formData
+        description: page
+        required: true
+        type: integer
+      - name: items
+        in: formData
+        description: items
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: "get success"
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example:
+                  $ref: "#/components/examples/Success"
+              data:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        first_name:
+                          type: string
+                        last_name:
+                          type: string
+                        email:
+                          type: string
+                        role:
+                          type: string
+                        company_id:
+                          type: string
+                        is_daihyo:
+                          type: boolean
+                          
+                    example:
+                    - id: 1
+                      first_name: "test1"
+                      last_name: "test1"
+                      email: "test1@example.com"
+                      role: "admin"
+                      company_id: 1
+                      is_daihyo: true
+                      
+                    - id: 2
+                      first_name: "test2"
+                      last_name: "test2"
+                      email: "test2@example.com"
+                      role: "worker"
+                      company_id: 2
+                      is_daihyo: false
+                      
+                  meta:
+                    type: object
+                    properties:
+                      items: 
+                        type: integer
+                        example: 10
+                      current_page:
+                        type: integer
+                        example: 2
+                      total_pages:
+                        type: integer
+                        example: 3
+                  
+    post:
+      tags:
+        - admin/company_admin
+      summary: "Create"
+      description: "create company admin"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: email
+          in: formData
+          description: email company admin
+          required: true
+          type: string
+        - name: role
+          in: formData
+          description: role
+          required: true
+          type: string
+        - name: first_name
+          in: formData
+          description: first name
+          required: true
+          type: string
+        - name: last_name
+          in: formData
+          description: last name
+          required: true
+          type: string
+          
+      responses:
+        '200':
+          description: success
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              message:
+                type: string
+                example: 
+                  $ref: "#/components/examples/WaitingConfirm"
+              data:
+                $ref: "#/components/schemas/CompanyAdmin"
+                    
+        "400":
+          description: create failed
+          schema:
+            $ref: "#/components/schemas/Invalid"
+
+  /admin/companies/:company_id/company_admins/:id:
+    put:
+      tags:
+        - admin/company_admin
+      summary: "Update"
+      description: "Update"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: formData
+          description: id company admin
+          required: true
+          type: integer
+        - name: first_name
+          in: formData
+          description: first name
+          required: true
+          type: string
+        - name: last_name
+          in: formData
+          description: last name
+          required: true
+          type: string
+        - name: email
+          in: formData
+          description: email
+          required: true
+          type: string
+        - name: role
+          in: formData
+          description: role
+          required: true
+          type: string
+      responses:
+        "200":
+          description: "update successful!"
+                    
+        "400":
+          description: email already exists
+          schema:
+            $ref: '#/components/schemas/Unacceptable'
+        
+        "404":
+          description: record not found
+          schema:
+            $ref: '#/components/schemas/Notfound'
+            
+    delete:
+      tags:
+        - admin/company_admin
+      summary: "Delete"
+      description: "Delete company admins"
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        "204":
+          description: "delete success"
+        
+        "404":
+          description: "delete fail"
+          schema:
+            $ref: '#/components/schemas/Notfound'
+                
+components: 
+  schemas:
+    CompanyAdmin:
+      type: "object"
+      properties:
+        id:
+          type: integer
+          example: 10
+        first_name:
+          type: string
+          example: "first name"
+        last_name:
+          type: string
+          example: "last name"
+        company_name:
+          type: string
+          example: "company 1"
+        email:
+          type: string
+          example: "test@example.com"
+        role:
+          type: string
+          example: "worker"
+        company_id:
+          type: integer
+          example: 1
+        is_daihyo:
+          type: string
+          example: "false"
+            
+    Employee:
+      type: "object"
+      properties:
+        id:
+          type: integer
+          example: 1
+        company_id:
+          type: integer
+          example: 1
+        first_name:
+          type: string
+          example: "xxxxxx"
+        last_name:
+          type: string
+          example: "xxxxxx"
+        sex:
+          type: integer
+          example: 1
+        kubun:
+          type: string
+          example: "engineer"
+        shindan_flag:
+          type: string
+          example: "false"
+        profile_pdf_url:
+          type: string
+          example: "xxx"
+        pdf_file_name:
+          type: string
+          example: "name_pdf"
+        created_at:
+          type: string
+          example: "02/02/2021"
+        updated_at:
+          type: string
+          example: "02/02/2021"
+            
+    Company:
+      type: "object"
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "example"
+        address:
+          type: string
+          example: "xxxxxx"
+        post_code:
+          type: string
+          example: "123456"
+        url:
+          type: string
+          example: "www.example.com"
+        tel:
+          type: string
+          example: "0123456789"
+                    
+    Energizer:
+      type: "object"
+      properties:
+        id: 
+          type: integer
+          example: 1
+        employee_id:
+          type: integer
+          example: 1
+        year:
+          type: string
+          example: "xxxxxx"
+        simple_react_answer:
+          type: integer
+          example: 1
+        simple_react_miss:
+          type: integer
+          example: 1
+        simple_react_fluc:
+          type: number
+          example: 0.5
+        hukugo1_answer:
+          type: integer
+          example: 1
+        hukugo1_miss:
+          type: integer
+          example: 1
+        hukugo1_fluc:
+          type: number
+          example: 0.5
+        hukugo2_answer:
+          type: integer
+          example: 1
+        hukugo2_miss:
+          type: integer
+          example: 1
+        hukugo2_fluc:
+          type: number
+          example: 0.5
+        hukugo3_answer:
+          type: integer
+          example: 1
+        hukugo3_miss:
+          type: integer
+          example: 1
+        hukugo3_fluc:
+          type: number
+          example: 0.5
+        hukugo_ave_answer:
+          type: integer
+          example: 1
+        hukugo_ave_miss:
+          type: integer
+          example: 1
+        hukugo_ave_fluc:
+          type: number
+          example: 0.5
+        yashin:
+          type: number
+          example: 0.5
+        otonashi:
+          type: number
+          example: 0.5
+        majime:
+          type: number
+          example: 0.5
+        gaikou:
+          type: number
+          example: 0.5
+        sewasuki:
+          type: number
+          example: 0.5
+        kisaku:
+          type: number
+          example: 0.5
+        inside_ave:
+          type: number
+          example: 0.5
+        brand_work:
+          type: number
+          example: 0.5
+        brand_office:
+          type: number
+          example: 0.5
+        brand_company:
+          type: number
+          example: 0.5
+        amuse_work:
+          type: number
+          example: 0.5
+        amuse_office:
+          type: number
+          example: 0.5
+        amuse_company:
+          type: number
+          example: 0.5
+        jituri_work:
+          type: number
+          example: 0.5
+        jituri_office:
+          type: number
+          example: 0.5
+        jituri_company:
+          type: number
+          example: 0.5
+        mind_work:
+          type: number
+          example: 0.5
+        mind_office:
+          type: number
+          example: 0.5
+        mind_company:
+          type: number
+          example: 0.5
+        body_kodo_work:
+          type: number
+          example: 0.5
+        body_kodo_office:
+          type: number
+          example: 0.5
+        body_kodo_company:
+          type: number
+          example: 0.5
+        jitugen_work:
+          type: number
+          example: 0.5
+        jitugen_office:
+          type: number
+          example: 0.5
+        jitugen_company:
+          type: number
+          example: 0.5
+        yasuragi_work:
+          type: number
+          example: 0.5
+        yasuragi_office:
+          type: number
+          example: 0.5
+        yasuragi_company:
+          type: number
+          example: 0.5
+        target_value_ave_work:
+          type: number
+          example: 0.5
+        target_value_ave_office:
+          type: number
+          example: 0.5
+        target_value_ave_company:
+          type: number
+          example: 0.5
+                    
+    ShindanSenkou:
+      type: "object"
+      properties:
+        id:
+          type: integer
+          example: 1
+        company_id:
+          type: integer
+          example: 1
+        employee_id:
+          type: integer
+          example: 1
+        is_employee:
+          type: boolean
+          example: true
+        year:
+          type: string
+          example: "2019"
+        senkou_result:
+          type: string
+          example: "FAIL"
+        shindan_flag:
+          type: string
+          example: "diagnosed"
+        allow_shindan:
+          type: boolean
+          example: true
+        detail:
+          type: object
+          properties:
+            aspiration:
+              type: string
+              example: "OK"
+            concentration:
+              type: string
+              example: "A_RANK"
+            hukugo:
+              type: string
+              example: "B_RANK"
+            init_fatigue:
+              type: string
+              example: "OK"
+            miss_ave:
+              type: string
+              example: "C_RANK"
+            performance:
+              type: string
+              example: "NG"
+            potential:
+              type: string
+              example: "OK"
+            trouble_risk:
+              type: string
+              example: "OK"
+            responsibility:
+              type: string
+              example: "B_RANK"
+            simple_miss:
+              type: string
+              example: "NG"
+            simple_react:
+              type: string
+              example: "B_RANK"
+            stress_tolerance:
+              type: string
+              example: "NG"
+            work_motivation:
+              type: string
+              example: "OK"
+  
+    CompanyDetails:
+      type: "object"
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: "company_0"
+        address:
+          type: string
+          example: "VN"
+        postcode:
+          type: string
+          example: "550000"
+        url:
+          type: string
+          example: "www.example.com"
+        tel:
+          type: string
+          example: "0123546789"
+        status:
+          type: string
+          example: "approved"
+        daihyo_first_name:
+          type: string
+          example: "first"
+        daihyo_last_name:
+          type: string
+          example: "last"
+        daihyo_email:
+          type: string
+          example: "example.gmail.com"
+        detail: 
+          type: string
+          example: "impressive"
+        shindan_count:
+          type: integer
+          example: 20
+                    
+    Invalid:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        error_message:
+          type: string
+          example: "引き数が不正です。"
+        details:
+          type: object
+          example: {}
+    
+    Unacceptable:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        error_message:
+          type: string
+          example: "レコードは一意ではありません"
+        details:
+          type: string
+          example: null
+
+    Notfound:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 404
+        error_message:
+          type: string
+          example: "みつかりませんでした。"
+        details:
+          type: string
+          example: null
+            
+    Unauthenticated:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 401
+        error_message:
+          type: string
+          example: "認証エラーが発生しました。"
+        details:
+          type: string
+          example: null
+        
+  examples:
+    Success: "成功しました"
+    WaitingConfirm: "承認待ちです。"

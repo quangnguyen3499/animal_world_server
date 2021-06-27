@@ -1,0 +1,13 @@
+image: node:9-alpine
+
+stages:
+  - deploy
+
+deploy-staging:
+  image: ruby:latest
+  stage: deploy
+  script:
+  - gem install dpl
+  - dpl --provider=heroku --app=$HEROKU_APPNAME --api-key=$HEROKU_API_KEY
+  only:
+  - develop

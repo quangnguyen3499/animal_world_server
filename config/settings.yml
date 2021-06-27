@@ -1,0 +1,42 @@
+regx:
+  password_rules:
+    complexity: !ruby/regexp /(?=.*[0-9])+(?=.*[A-Za-z])(?=.{8,15})/
+  email_rule: !ruby/regexp /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  date: !ruby/regexp /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/
+  year_rule: !ruby/regexp /\A(19|20)\d{2}\z/
+
+employee:
+  sex:
+    male: 0
+    female: 1
+  kubun:
+    fulltime: 0
+    parttime: 1
+    dispatch: 2
+    senkou: 3
+    other: 4
+  shindan_flag:
+    undiagnosed: 0
+    diagnosed: 1
+  items_per_page: 24
+
+billing:
+  init_cost: 100000
+  tax: 0.1
+  unit_price:
+    senkou: 5000
+    employee: 10000
+  
+format:
+  datetime: "%Y/%m/%d %H:%M:%S"
+  date: "%Y/%m/%d"  
+  month: "%Y/%m"
+
+pagy:
+  items: 10
+
+token:
+  expire_time: 24
+
+pdf:
+  max_size: 10

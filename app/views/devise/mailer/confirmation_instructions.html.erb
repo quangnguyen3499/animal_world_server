@@ -1,0 +1,8 @@
+<p><%= @email %>様</p>
+
+<p>この度は、ミルメへご登録いただき、誠にありがとうございます。
+お客様の情報を仮登録させていただきました。</p>
+
+<p>本登録に進むには、以下のURLにアクセスし、パスワードを初期設定して下さい<br>
+
+<p><%= link_to t('.confirm_account_link'), confirmation_url(@resource, {confirmation_token: @token, config: message['client-config'].to_s, redirect_url: message['redirect-url']}).html_safe %></p>

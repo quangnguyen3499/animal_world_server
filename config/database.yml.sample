@@ -1,0 +1,24 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") {5} %>
+  host: <%= ENV.fetch("DATABASE_HOSTNAME", "db") %>
+  username: <%= ENV.fetch("DATABASE_USERNAME", "root") %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD", "password") %>
+  port: <%= ENV.fetch("DATABASE_PORT") {3306} %>
+
+development:
+  <<: *default
+  database: petcare_development
+
+test:
+  <<: *default
+  database: petcare_test
+
+production:
+  <<: *default
+  host: <%= ENV.fetch("DB_HOSTNAME") %>
+  database: <%= ENV.fetch("DB_NAME") %>
+  username: <%= ENV.fetch("DB_USERNAME") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>
+  port: <%= ENV.fetch("DB_PORT") %>

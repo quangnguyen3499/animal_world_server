@@ -1,0 +1,77 @@
+﻿ja:
+  swagger_project:
+    title: "Pet Care"
+    description: "Pet Care Swagger"
+  api_error:
+    record_not_found: "みつかりませんでした。"
+    error_validate: "バリデーションエラーが発生しました。"
+    record_invalid: "次のエラーが発生しました"
+    authenticate: "認証エラーが発生しました。"
+    argument_error: "引き数が不正です。"
+    record_not_unique: "レコードは一意ではありません"
+    value_too_long: "値が長すぎます"
+  activerecord:
+    attributes:
+      company:
+        name: "企業名"
+        address: "住所"
+        daihyo_email: "代表メールアドレス"
+        daihyo_first_name: "代表名"
+        daihyo_last_name: "代表姓"
+        postcode: "郵便番号"
+        tel: "電話番号"
+      company_admin:
+        first_name: "名"
+        last_name: "姓"
+        password: "パスワード"
+        email: "メールアドレス"
+        role: "役割"
+    errors:
+      format: "%{attribute}%{message}"
+      messages:
+        blank: "必須項目です。"
+        invalid: "形式が正しくありません。"
+        taken: "すでに存在しています"
+        too_long: "%{count}文字以下にしてください。"
+        too_short: "%{count}文字以上にする必要があります。"
+        not_found: "見つかりませんでした。"
+        confirmation: "入力が一致しません"
+        invalid_url: "URLの形式が正しくありません。"
+  model:
+    billing:
+      email:
+        mail_billing_subject: "【株式会社武蔵野】診断サービス「ミルメ」請求書送付のご案内"
+    company_admin:
+      sign_up:
+        waiting_confirm: "承認待ちです。"
+        confirmed: "確認済み。"
+      sign_in:
+        password_incorrect: "パスワードが正しくありません。"
+        account_not_confirm: "ログインに失敗しました。"
+        email_not_exist: "該当のメールアドレスのユーザーは存在しません。"
+      password:
+        new_password_instructions: "パスワード初期設定"
+    company:
+      email:
+        mail_confirm_subject: "仮登録のご案内(メールアドレスの確認)"
+        mail_approve_request_subject: "本登録完了のご案内"
+        mail_complete_registration: "本登録完了のご案内"
+      password_format: "数字と文字が含まれている必要があります"
+      errors:
+        token_invalid: "トークンが無効です。"
+        exist: "既存の企業です。"
+  csv:
+    errors:
+      file_size_over: "アップロードするファイルのサイズが上限(1MB)を超えています。"
+      file_type_invalid: "ファイルが不正です。ファイル内容を再度確認してください。"
+      file_invalid: "ファイルの内容が無効です"
+      company_not_found: "会社が見つかりません"
+      invalid_record: "%{name}さんの入力された情報に誤りがありました（%{index}行）"
+      duplicate_record: "%{name}さんは既に登録されています（%{index}行）"
+  devise:
+    mailer:
+      reset_password_instructions:
+        subject: "パスワード再設定"
+  actions:
+    success: "成功しました"
+    failed: "失敗しました"
