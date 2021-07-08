@@ -4,5 +4,3 @@
 :queues:
   - mailer
   - default
-  - energizer
-  - billing
