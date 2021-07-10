@@ -26,7 +26,7 @@
 #  index_company_admins_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_company_admins_on_uid_and_provider      (uid,provider) UNIQUE
 #
-class CompanyAdminSerializer < ApplicationSerializer
+class SessionSerializer < ApplicationSerializer
   attribute :user do |object, params|
     {
       id: object.id,
@@ -36,6 +36,16 @@ class CompanyAdminSerializer < ApplicationSerializer
       role: object.role,
       created_at: object.created_at.strftime("%d/%m/%Y"),
       updated_at: object.updated_at.strftime("%d/%m/%Y")
+    }
+  end
+
+  attribute :token do |object, params|
+    token = params[:token]
+    {
+      uid: object.uid,
+      token: token.token,
+      client_id: token.client,
+      expiry: token.expiry
     }
   end
 end
