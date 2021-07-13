@@ -26,31 +26,26 @@
 #  index_company_admins_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_company_admins_on_uid_and_provider      (uid,provider) UNIQUE
 #
-class CompanyAdmin < ApplicationRecord
-  extend Devise::Models
-  devise :database_authenticatable, :registerable, :recoverable
-  include DeviseTokenAuth::Concerns::User
-
-  before_discard do
-    raise ApiError::Undeletable if admin
+class SessionSerializer < ApplicationSerializer
+  attribute :user do |object, params|
+    {
+      id: object.id,
+      email: object.email,
+      first_name: object.first_name,
+      last_name: object.last_name,
+      role: object.role,
+      created_at: object.created_at.strftime("%d/%m/%Y"),
+      updated_at: object.updated_at.strftime("%d/%m/%Y")
+    }
   end
 
-  CREATE_PARAMS = [:first_name, :last_name, :email, :role, :password]
-
-  enum role: {admin: 0, worker: 1}
-
-  before_validation :sync_uid
-
-  validates :first_name, :last_name, presence: true, length: {maximum: 100}
-  validates :email, presence: true, format: {with: Settings.regx.email_rule}
-  validates :email, uniqueness: {scope: :provider, case_sensitive: false}
-  validates :role, presence: true
-
-  def sync_uid
-    self.uid = email if provider == "email"
-  end
-
-  def active_for_authentication?
-    super && !discarded?
+  attribute :token do |object, params|
+    token = params[:token]
+    {
+      uid: object.uid,
+      token: token.token,
+      client_id: token.client,
+      expiry: token.expiry
+    }
   end
 end
