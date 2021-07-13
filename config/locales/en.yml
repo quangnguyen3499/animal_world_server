@@ -1,15 +1,14 @@
-﻿ja:
+﻿en:
   swagger_project:
     title: "Pet Care"
     description: "Pet Care Swagger"
   api_error:
-    record_not_found: "みつかりませんでした。"
-    error_validate: "バリデーションエラーが発生しました。"
-    record_invalid: "次のエラーが発生しました"
-    authenticate: "認証エラーが発生しました。"
-    argument_error: "引き数が不正です。"
-    record_not_unique: "レコードは一意ではありません"
-    value_too_long: "値が長すぎます"
+    record_not_found: "record not found"
+    error_validate: "validate fail"
+    record_invalid: "record is not valid"
+    authenticate: "not authenticated"
+    argument_error: "wrong argument"
+    record_not_unique: "record's already existed"
   activerecord:
     attributes:
       company:

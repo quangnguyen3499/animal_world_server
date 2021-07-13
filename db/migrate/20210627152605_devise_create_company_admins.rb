@@ -3,6 +3,10 @@
 class DeviseCreateCompanyAdmins < ActiveRecord::Migration[6.0]
   def change
     create_table :company_admins do |t|
+      ## Required
+      t.string :provider, :null => false, :default => "email"
+      t.string :uid, :null => false, :default => ""
+
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
@@ -10,6 +14,7 @@ class DeviseCreateCompanyAdmins < ActiveRecord::Migration[6.0]
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
+      t.boolean  :allow_password_change, :default => false
 
       ## Rememberable
       t.datetime :remember_created_at
@@ -32,13 +37,19 @@ class DeviseCreateCompanyAdmins < ActiveRecord::Migration[6.0]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      ## User Info
+      t.string :first_name
+      t.string :last_name
+      t.integer :role, :limit => 1 #tinyint
+
+      ## Tokens
+      t.text :tokens
 
       t.timestamps null: false
     end
 
     add_index :company_admins, :email,                unique: true
+    add_index :company_admins, [:uid, :provider],     unique: true
     add_index :company_admins, :reset_password_token, unique: true
-    # add_index :company_admins, :confirmation_token,   unique: true
-    # add_index :company_admins, :unlock_token,         unique: true
   end
 end

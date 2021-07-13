@@ -3,6 +3,10 @@
 class DeviseCreateClients < ActiveRecord::Migration[6.0]
   def change
     create_table :clients do |t|
+      ## Required
+      t.string :provider, :null => false, :default => "email"
+      t.string :uid, :null => false, :default => ""
+      
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
@@ -10,6 +14,7 @@ class DeviseCreateClients < ActiveRecord::Migration[6.0]
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
+      t.boolean  :allow_password_change, :default => false
 
       ## Rememberable
       t.datetime :remember_created_at
@@ -32,13 +37,19 @@ class DeviseCreateClients < ActiveRecord::Migration[6.0]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
+      ## Client Info
+      t.string :first_name
+      t.string :last_name
+      t.integer :member_level, :limit => 1 #tinyint
+
+      ## Tokens
+      t.text :tokens
 
       t.timestamps null: false
     end
 
     add_index :clients, :email,                unique: true
+    add_index :clients, [:uid, :provider],     unique: true
     add_index :clients, :reset_password_token, unique: true
-    # add_index :clients, :confirmation_token,   unique: true
-    # add_index :clients, :unlock_token,         unique: true
   end
 end
