@@ -13,6 +13,11 @@
 ActiveRecord::Schema.define(version: 2021_07_04_030323) do
 
   create_table "carts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "client_id", null: false
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_carts_on_client_id"
   end
 
   create_table "clients", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -38,6 +43,15 @@ ActiveRecord::Schema.define(version: 2021_07_04_030323) do
   end
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "postcode"
+    t.string "tel"
+    t.string "url"
+    t.string "ranking"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "company_admins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -63,16 +77,23 @@ ActiveRecord::Schema.define(version: 2021_07_04_030323) do
   end
 
   create_table "feed_backs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "client_id", null: false
+    t.integer "rating"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_feed_backs_on_client_id"
   end
 
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "type"
+    t.integer "typical"
     t.string "name"
     t.integer "updated_by"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "discarded_at"
     t.index ["discarded_at"], name: "index_items_on_discarded_at"
+    t.index ["updated_by"], name: "index_items_on_updated_by"
   end
 
 end

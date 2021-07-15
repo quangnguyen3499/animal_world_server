@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       }
       resources :company_admins, only: [:index, :update, :show, :destroy]
       resources :clients, only: [:index, :update, :show, :destroy]
+      resources :items, only: [:index, :create, :update, :show, :destroy]
     end
   end
 end

@@ -14,7 +14,7 @@ class Api::V1::Clients::SessionsController < DeviseTokenAuth::SessionsController
     token = @resource.create_token
     @resource.save
     sign_in(:client, @resource, store: false, bypass: false)
-    json_response(:ok, ClientSerializer.new(@resource, {params: {token: token}}).to_h)
+    json_response(:ok, SessionSerializer.new(@resource, {params: {token: token}}).to_h)
   end
 
   def destroy
