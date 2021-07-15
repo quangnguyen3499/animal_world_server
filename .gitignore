@@ -39,3 +39,5 @@ coverage/
 
 # procfile
 Procfile.dev
+Gemfile.lock
+.gitignore
