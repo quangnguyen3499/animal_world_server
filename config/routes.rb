@@ -16,6 +16,8 @@ Rails.application.routes.draw do
         registrations: "api/v1/clients/registrations",
         passwords: "api/v1/clients/passwords"
       }
+      resources :company_admins, only: [:index, :update, :show, :destroy]
+      resources :clients, only: [:index, :update, :show, :destroy]
     end
   end
 end

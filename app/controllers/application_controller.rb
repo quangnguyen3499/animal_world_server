@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
   private
 
   def check_auth_upload
-    current_user = current_api_v1_company_admin || current_api_v1_system_admin
+    current_user = current_api_v1_company_admin || current_api_v1_client
     render_authenticate_error unless current_user
   end
 
@@ -23,6 +23,10 @@ class ApplicationController < ActionController::API
   end
 
   def current_auth_resource
-    current_api_v1_company_admin if api_v1_company_admin_signed_in?
+    if api_v1_company_admin_signed_in?
+      current_api_v1_company_admin
+    elsif api_v1_client_signed_in?
+      current_api_v1_client
+    end
   end
 end
