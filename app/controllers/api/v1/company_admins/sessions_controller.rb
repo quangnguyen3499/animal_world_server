@@ -14,7 +14,7 @@ class Api::V1::CompanyAdmins::SessionsController < DeviseTokenAuth::SessionsCont
     token = @resource.create_token
     @resource.save
     sign_in(:company_admin, @resource, store: false, bypass: false)
-    json_response(:ok, CompanyAdminSerializer.new(@resource, {params: {token: token}}).to_h)
+    json_response(:ok, SessionSerializer.new(@resource, {params: {token: token}}).to_h)
   end
 
   def destroy

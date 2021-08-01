@@ -16,6 +16,7 @@ Rails.application.routes.draw do
         registrations: "api/v1/clients/registrations",
         passwords: "api/v1/clients/passwords"
       }
+      resources :items
     end
   end
 end

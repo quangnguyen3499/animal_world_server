@@ -15,7 +15,7 @@ class Api::V1::Clients::PasswordsController < DeviseTokenAuth::PasswordsControll
     )
     json_response(:created)
   end
-  
+
   def edit
     @resource = resource_class.with_reset_password_token(resource_params[:reset_password_token])
     raise ApiError::ErrorVerifyAccount unless @resource && @resource&.reset_password_period_valid?

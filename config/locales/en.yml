@@ -12,30 +12,32 @@
   activerecord:
     attributes:
       company:
-        name: "企業名"
-        address: "住所"
-        daihyo_email: "代表メールアドレス"
-        daihyo_first_name: "代表名"
-        daihyo_last_name: "代表姓"
-        postcode: "郵便番号"
-        tel: "電話番号"
+        name: "company name"
+        address: "address"
+        postcode: "postcode"
+        tel: "phone number"
       company_admin:
-        first_name: "名"
-        last_name: "姓"
-        password: "パスワード"
-        email: "メールアドレス"
-        role: "役割"
+        first_name: "first name"
+        last_name: "last name"
+        password: "password"
+        email: "email"
+        role: "role"
+      client:
+        first_name: "first name"
+        last_name: "last name"
+        password: "password"
+        email: "email"
+        role: "role"
     errors:
       format: "%{attribute}%{message}"
       messages:
-        blank: "必須項目です。"
-        invalid: "形式が正しくありません。"
-        taken: "すでに存在しています"
-        too_long: "%{count}文字以下にしてください。"
-        too_short: "%{count}文字以上にする必要があります。"
-        not_found: "見つかりませんでした。"
-        confirmation: "入力が一致しません"
-        invalid_url: "URLの形式が正しくありません。"
+        blank: "is missing"
+        invalid: "is invalid"
+        taken: "is taken"
+        too_long: "%{count} is too long"
+        too_short: "%{count} is too short"
+        not_found: "is not found"
+        invalid_url: "is invalid URL"
   model:
     billing:
       email:
@@ -70,7 +72,7 @@
   devise:
     mailer:
       reset_password_instructions:
-        subject: "パスワード再設定"
+        subject: "Reset password"
   actions:
-    success: "成功しました"
-    failed: "失敗しました"
+    success: "success"
+    failed: "fail"

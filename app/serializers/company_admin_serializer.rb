@@ -27,7 +27,7 @@
 #  index_company_admins_on_uid_and_provider      (uid,provider) UNIQUE
 #
 class CompanyAdminSerializer < ApplicationSerializer
-  attribute :user do |object, params|
+  attribute :user do |object, _params|
     {
       id: object.id,
       email: object.email,

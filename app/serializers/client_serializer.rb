@@ -27,7 +27,7 @@
 #  index_clients_on_uid_and_provider      (uid,provider) UNIQUE
 #
 class ClientSerializer < ApplicationSerializer
-  attribute :user do |object, params|
+  attribute :user do |object, _params|
     {
       id: object.id,
       email: object.email,
