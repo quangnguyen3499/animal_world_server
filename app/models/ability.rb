@@ -1,8 +1,8 @@
 class Ability
   include CanCan::Ability
 
-  def initialize company_admin, params
-    @user = company_admin
+  def initialize user, params
+    @user = user
     @params = params
 
     return unless @user
@@ -10,9 +10,8 @@ class Ability
     if @user.admin?
       can :manage, :all
     else
-      can :read, [Company, Client]
-      can :manage, Item
-      can :read, :update, CompanyAdmin, id: @user.id
+      can :read, [Place, Animal]
+      can :manage, User, id: @user.id
     end
   end
 end

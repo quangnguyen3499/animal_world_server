@@ -26,7 +26,7 @@ module Response
         items: serialize_data(model, data, options),
         itemsPerPage: meta.items,
         page: meta.page,
-        serverItemsLength: meta.count,
+        serverItemsLength: meta&.count,
         total_pages: meta.pages
       }
     end

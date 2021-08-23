@@ -11,18 +11,12 @@
     record_not_unique: "record's already existed"
   activerecord:
     attributes:
-      company:
-        name: "company name"
+      place:
+        name: "place name"
         address: "address"
         postcode: "postcode"
         tel: "phone number"
-      company_admin:
-        first_name: "first name"
-        last_name: "last name"
-        password: "password"
-        email: "email"
-        role: "role"
-      client:
+      user:
         first_name: "first name"
         last_name: "last name"
         password: "password"
@@ -42,7 +36,7 @@
     billing:
       email:
         mail_billing_subject: "【株式会社武蔵野】診断サービス「ミルメ」請求書送付のご案内"
-    company_admin:
+    user:
       sign_up:
         waiting_confirm: "承認待ちです。"
         confirmed: "確認済み。"
@@ -52,21 +46,12 @@
         email_not_exist: "該当のメールアドレスのユーザーは存在しません。"
       password:
         new_password_instructions: "パスワード初期設定"
-    company:
-      email:
-        mail_confirm_subject: "仮登録のご案内(メールアドレスの確認)"
-        mail_approve_request_subject: "本登録完了のご案内"
-        mail_complete_registration: "本登録完了のご案内"
-      password_format: "数字と文字が含まれている必要があります"
-      errors:
-        token_invalid: "トークンが無効です。"
-        exist: "既存の企業です。"
   csv:
     errors:
       file_size_over: "アップロードするファイルのサイズが上限(1MB)を超えています。"
       file_type_invalid: "ファイルが不正です。ファイル内容を再度確認してください。"
       file_invalid: "ファイルの内容が無効です"
-      company_not_found: "会社が見つかりません"
+      place_not_found: "会社が見つかりません"
       invalid_record: "%{name}さんの入力された情報に誤りがありました（%{index}行）"
       duplicate_record: "%{name}さんは既に登録されています（%{index}行）"
   devise:

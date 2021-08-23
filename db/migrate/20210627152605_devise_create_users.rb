@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class DeviseCreateCompanyAdmins < ActiveRecord::Migration[6.0]
+class DeviseCreateUsers < ActiveRecord::Migration[6.0]
   def change
-    create_table :company_admins do |t|
+    create_table :users do |t|
       ## Required
       t.string :provider, :null => false, :default => "email"
       t.string :uid, :null => false, :default => ""
@@ -48,8 +48,8 @@ class DeviseCreateCompanyAdmins < ActiveRecord::Migration[6.0]
       t.timestamps null: false
     end
 
-    add_index :company_admins, :email,                unique: true
-    add_index :company_admins, [:uid, :provider],     unique: true
-    add_index :company_admins, :reset_password_token, unique: true
+    add_index :users, :email,                unique: true
+    add_index :users, [:uid, :provider],     unique: true
+    add_index :users, :reset_password_token, unique: true
   end
 end

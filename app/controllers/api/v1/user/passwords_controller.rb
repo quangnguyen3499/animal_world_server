@@ -1,4 +1,4 @@
-class Api::V1::CompanyAdmins::PasswordsController < DeviseTokenAuth::PasswordsController
+class Api::V1::User::PasswordsController < DeviseTokenAuth::PasswordsController
   skip_before_action :validate_redirect_url_param, only: [:create, :edit]
 
   def create

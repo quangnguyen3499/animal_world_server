@@ -3,27 +3,27 @@ require 'database_cleaner'
 puts "Clean database"
 DatabaseCleaner.clean_with(:truncation)
 
-puts "Create company"
-Company.create! name: 'company', address: Faker::Address.city, postcode: "550000", tel: "5555555555", 
-  url: 'www.example.com', ranking: 'A', description: Faker::Lorem.paragraph
+puts "Create places"
+(1..10).each do |i|
+  Place.create! name: "place_#{i}", address: Faker::Address.city, longitude: Faker::Address.longitude,
+    latitude: Faker::Address.latitude, tel: "5555555555", url: 'www.example.com', status: i%2,
+    rating: 5, description: Faker::Lorem.paragraph
+end
 
-puts "Create company_admins"
-CompanyAdmin.create! first_name: "first", last_name: "last", email: "admin@example.com",
+puts "Create users"
+User.create! first_name: "first", last_name: "last", email: "admin@example.com",
   role: :admin, password: "abcd1234"
 (1..10).each do |i|
-  CompanyAdmin.create! first_name: "worker_#{i}", last_name: "company_#{i}", email: "worker_#{i}@example.com",
-    role: :worker, password: "abcd1234"
+  User.create! first_name: "client_#{i}", last_name: "last_#{i}", email: "client_#{i}@example.com",
+    role: :client, password: "abcd1234"
 end
 
-puts "Create clients"
+puts "Create animals"
 (1..10).each do |i|
-  Client.create! first_name: "first_#{i}", last_name: "last_#{i}", email: "client_#{i}@example.com",
-    member_level: i%4, password: "abcd1234"
+  Animal.create! name: [
+    Faker::Creature::Animal.name, Faker::Creature::Bird.common_name, Faker::Creature::Cat.name, 
+    Faker::Creature::Dog.name, Faker::Creature::Horse.name
+  ].sample, typical: i%5, quantity: i*1000, description: Faker::Lorem.paragraph
 end
 
-puts "Create items"
-(1..10).each do |i|
-  Item.create! name: "item_#{i}", typical: i%4, price: 100000, discount: 0.1, status: i%2
-end
-
-puts "Done! Please login with [ #{CompanyAdmin.first.email} | abcd1234 ]."
+puts "Done! Please login with [ #{User.first.email} | abcd1234 ]."

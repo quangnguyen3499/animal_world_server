@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: company_admins
+# Table name: users
 #
 #  id                     :bigint           not null, primary key
 #  allow_password_change  :boolean          default(FALSE)
@@ -21,12 +21,12 @@
 #
 # Indexes
 #
-#  index_company_admins_on_discarded_at          (discarded_at)
-#  index_company_admins_on_email                 (email) UNIQUE
-#  index_company_admins_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_company_admins_on_uid_and_provider      (uid,provider) UNIQUE
+#  index_users_on_discarded_at          (discarded_at)
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
-class CompanyAdminSerializer < ApplicationSerializer
+class UserSerializer < ApplicationSerializer
   attribute :user do |object, _params|
     {
       id: object.id,
