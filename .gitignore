@@ -6,7 +6,6 @@
 # Ignore all logfiles and tempfiles.
 log/*
 tmp/*
-Gemfile.lock
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/

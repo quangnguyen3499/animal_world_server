@@ -10,4 +10,4 @@ deploy-staging:
   - gem install dpl
   - dpl --provider=heroku --app=$HEROKU_APPNAME --api-key=$HEROKU_API_KEY
   only:
-  - develop
+  - master

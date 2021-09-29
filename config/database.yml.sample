@@ -9,11 +9,11 @@ default: &default
 
 development:
   <<: *default
-  database: petcare_development
+  database: animalworld_development
 
 test:
   <<: *default
-  database: petcare_test
+  database: animalworld_test
 
 production:
   <<: *default

@@ -36,7 +36,6 @@ group :development, :test do
   gem "pry-byebug"
   gem "rubocop-rails", require: false
   gem "rails-erd"
-  gem 'wkhtmltopdf-binary'
 end
 
 group :development, :staging do
@@ -60,10 +59,6 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem "simplecov", require: false
-end
-
-group :production do
-  gem "wkhtmltopdf-heroku"
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
