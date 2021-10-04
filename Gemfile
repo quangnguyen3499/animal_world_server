@@ -13,6 +13,7 @@ gem "puma", "~> 4.1"
 gem "rack-attack"
 gem "rack-cors"
 gem "ransack"
+gem "sassc-rails"
 gem "rails", "= 6.0.3.6"
 gem "redis", "~> 4.0"
 gem "sidekiq"
@@ -22,12 +23,13 @@ gem "devise_token_auth"
 gem "devise"
 gem "rails-i18n"
 gem "pagy"
-gem "aws-sdk-s3", require: false
 gem "cancancan"
 gem "discard"
 gem "faker"
 gem "money"
 gem "wicked_pdf"
+gem "activeadmin"
+gem "wdm", ">= 0.1.0", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

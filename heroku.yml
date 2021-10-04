@@ -1,0 +1,7 @@
+build:
+  docker:
+    web: Dockerfile
+  config:
+    WORKDIR: api
+run:
+  web: mkdir -p tmp/pids && bundle exec puma -C config/puma.rb

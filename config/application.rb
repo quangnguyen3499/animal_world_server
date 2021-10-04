@@ -12,6 +12,7 @@ require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
 require "rails/test_unit/railtie"
+require "sprockets/railtie"
 
 Bundler.require(*Rails.groups)
 
@@ -48,6 +49,10 @@ module RailsBaseApi
 
     config.paths.add "app/serializers/concerns", eager_load: true
     config.middleware.use ActionDispatch::Cookies
-    config.middleware.delete ActionDispatch::Session::CookieStore
+
+    # Middleware for ActiveAdmin
+    config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Flash
+    config.middleware.use ActionDispatch::Session::CookieStore
   end
 end

@@ -25,8 +25,7 @@ class Place < ApplicationRecord
   FILTERING_PARAM = [:name, :address, :status, :rating]
 
   has_many_attached :images
-  has_many :animal_places
-  has_many :animals, through: :animal_places
+  has_and_belongs_to_many :animals
 
   enum status: {opening: 0, closed: 1}
 

@@ -20,8 +20,7 @@ class Animal < ApplicationRecord
   FILTERING_PARAM = [:name, :typical]
   
   has_many_attached :images
-  has_many :animal_places
-  has_many :places, through: :animal_places
+  has_and_belongs_to_many :places
 
   enum typical: {animal: 0, bird: 1, cat: 2, dog: 3, horse: 4}
 
