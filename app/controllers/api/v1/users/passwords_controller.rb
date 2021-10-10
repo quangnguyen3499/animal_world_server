@@ -1,5 +1,6 @@
 class Api::V1::Users::PasswordsController < DeviseTokenAuth::PasswordsController
   skip_before_action :validate_redirect_url_param, only: [:create, :edit]
+  protect_from_forgery unless: -> { request.format.json? }
 
   def create
     raise ErrorValidate unless resource_params[:email].present?

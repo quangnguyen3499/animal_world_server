@@ -5,10 +5,7 @@ class CreatePlaces < ActiveRecord::Migration[6.0]
       t.text :address
       t.string :tel
       t.string :url
-      t.float :rating
-      t.integer :status
-      t.float :longitude
-      t.float :latitude
+      t.integer :floor
       t.text :description
 
       t.timestamps

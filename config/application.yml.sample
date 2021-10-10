@@ -17,7 +17,7 @@ EMAIL_SUPPORTER: "defaul_from_email@example.com"
 SYSTEM_ADMIN_EMAIL: "sys_admin@example.com"
 
 # redis
-REDIS_URL: "redis://localhost:6379/1"
+REDISTOGO_URL: "redis://localhost:6379/1"
 REDIS_PORT: "6379"
 REDIS_DB: "animalworld_redis"
 

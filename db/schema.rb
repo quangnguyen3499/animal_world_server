@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_20_064055) do
+ActiveRecord::Schema.define(version: 2021_10_22_114342) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -33,24 +33,32 @@ ActiveRecord::Schema.define(version: 2021_08_20_064055) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "animals", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "typical"
+  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
-    t.text "description"
-    t.integer "quantity"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_animals_on_discarded_at"
   end
 
-  create_table "feed_backs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "rating"
-    t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_feed_backs_on_user_id"
+  create_table "coordinates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "shop_id"
+    t.string "name"
+    t.bigint "longitude"
+    t.bigint "latitude"
+    t.index ["shop_id"], name: "index_coordinates_on_shop_id"
+  end
+
+  create_table "directions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "marker_id"
+    t.text "direct"
+    t.index ["marker_id"], name: "index_directions_on_marker_id"
+  end
+
+  create_table "floors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "place_id"
+    t.string "name"
+    t.index ["place_id"], name: "index_floors_on_place_id"
+  end
+
+  create_table "markers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "pair_name"
   end
 
   create_table "places", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -58,15 +66,33 @@ ActiveRecord::Schema.define(version: 2021_08_20_064055) do
     t.text "address"
     t.string "tel"
     t.string "url"
-    t.float "rating"
-    t.integer "status"
-    t.float "longitude"
-    t.float "latitude"
+    t.integer "floor"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_places_on_discarded_at"
+  end
+
+  create_table "shops", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.text "description"
+    t.integer "category_id"
+    t.integer "place_id"
+    t.integer "floor_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_shops_on_category_id"
+    t.index ["floor_id"], name: "index_shops_on_floor_id"
+    t.index ["place_id"], name: "index_shops_on_place_id"
+  end
+
+  create_table "statistics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.integer "floor_id"
+    t.integer "place_id"
+    t.string "nodes"
+    t.string "graph"
+    t.index ["floor_id"], name: "index_statistics_on_floor_id"
+    t.index ["place_id"], name: "index_statistics_on_place_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -84,8 +110,6 @@ ActiveRecord::Schema.define(version: 2021_08_20_064055) do
     t.text "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "discarded_at"
-    t.index ["discarded_at"], name: "index_users_on_discarded_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true

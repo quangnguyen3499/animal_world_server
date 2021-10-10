@@ -34,8 +34,6 @@ module ApiHelper
   def build_auth_headers email, password
     post api_v1_user_session_path(email: email, password: password)
     headers = response_data["token"]
-    headers["access-token"] = headers.delete("token")
-    headers["client"] = headers.delete("client_id")
     headers
   end
 end

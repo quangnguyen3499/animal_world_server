@@ -4,7 +4,6 @@
 #
 #  id                     :bigint           not null, primary key
 #  allow_password_change  :boolean          default(FALSE)
-#  discarded_at           :datetime
 #  email                  :string(191)      default(""), not null
 #  encrypted_password     :string(191)      default(""), not null
 #  first_name             :string(191)
@@ -21,7 +20,6 @@
 #
 # Indexes
 #
-#  index_users_on_discarded_at          (discarded_at)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE

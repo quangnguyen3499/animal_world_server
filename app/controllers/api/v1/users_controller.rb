@@ -1,4 +1,4 @@
-class Api::V1::UsersController::UsersController < Api::V1::BaseController
+class Api::V1::UsersController < Api::V1::BaseController
   before_action :load_user, except: :index
 
   def index
@@ -20,7 +20,7 @@ class Api::V1::UsersController::UsersController < Api::V1::BaseController
   end
 
   def destroy
-    @user.discard!
+    @user.destroy
     json_response :ok, "", I18n.t("actions.success")
   end
 
@@ -31,6 +31,6 @@ class Api::V1::UsersController::UsersController < Api::V1::BaseController
   end
 
   def user_params
-    params.permit(:first_name, :last_name, :role, :email)
+    params.permit(:username, :role, :email)
   end
 end

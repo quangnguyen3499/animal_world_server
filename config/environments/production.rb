@@ -38,11 +38,12 @@ Rails.application.configure do
 
   config.action_mailer.smtp_settings = {
     user_name: ENV["EMAIL_USERNAME"],
-    password: ENV["SMTP_PASSWORD"],
+    password: ENV["EMAIL_PASSWORD"],
     domain: ENV["SMTP_DOMAIN"],
     port: ENV["SMTP_PORT"],
-    address: ENV["ADDRESS"],
+    address: "smtp.gmail.com",
     authentication: ENV["SMTP_AUTHENTICATION"],
     enable_starttls_auto: true
   }
+  config.assets.compile = true
 end

@@ -37,7 +37,7 @@ module RailsBaseApi
         origins "*"
         resource "*",
           headers: :any,
-          expose: ["access-token", "expiry", "token-type", "uid", "client",
+          expose: ["token", "expiry", "token-type", "uid", "client",
             "Origin", "Content-Type", "Content-MD5", "Content-Disposition"],
           methods: [:get, :post, :options, :delete, :put, :patch]
       end

@@ -1,11 +1,26 @@
 class Graph::ShortestPath < Graph::Base
   # Constructor
-  def initialize
-    @g = {}  # the graph // {node => { edge1 => weight, edge2 => weight}, node2 => ...
-    @nodes = Array.new
+  def initialize object, *_args
     @INFINITY = 1 << 64
+    @result = {
+      path: "",
+      distance: 0
+    }
+    @g = {}
+    @nodes = object[:nodes]
+    @s = object[:source]
+    @t = object[:target]
+    object[:graph].each do |g|
+      add_edge(g.first, g.second, g.last)
+    end
+    super
   end
 
+  def perform!
+    @result[:distance] = shortest_paths
+    @result
+  end
+  
   def add_edge(s,t,w)     # s= source, t= target, w= weight
     if (not @g.has_key?(s))
       @g[s] = {t=>w}
@@ -31,14 +46,14 @@ class Graph::ShortestPath < Graph::Base
 
   # based of wikipedia's pseudocode: http://en.wikipedia.org/wiki/Dijkstra's_algorithm
 
-  def dijkstra(s)
+  def dijkstra
     @d = {}
     @prev = {}
     @nodes.each do |i|
       @d[i] = @INFINITY
       @prev[i] = -1
     end
-    @d[s] = 0
+    @d[@s] = 0
     q = @nodes.compact
     while (q.size > 0)
       u = nil;
@@ -67,23 +82,29 @@ class Graph::ShortestPath < Graph::Base
     if @prev[dest] != -1
       print_path @prev[dest]
     end
+    @result[:path] += dest
     print ">#{dest}"
   end
 
   # Gets all shortests paths using dijkstra
 
-  def shortest_paths(s)
-    @source = s
-    dijkstra s
+  def shortest_paths
+    @source = @s
+    dijkstra
     puts "Source: #{@source}"
-    @nodes.each do |dest|
-      puts "\nTarget: #{dest}"
-      print_path dest
-      if @d[dest] != @INFINITY
-        puts "\nDistance: #{@d[dest]}"
-      else
-        puts "\nNO PATH"
-      end
+    puts "\nTarget: #{@t}"
+    begin
+      print_path @t
+    rescue SystemStackError
+      puts "Error start/end point"
+    rescue ArgumentError
+      puts "Need 2 arguments"
     end
+    if @d[@t] != @INFINITY
+      puts "\nDistance: #{@d[@t]}"
+    else
+      puts "\nNO PATH"
+    end
+    @d[@t]
   end
 end

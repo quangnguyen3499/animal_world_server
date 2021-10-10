@@ -1,7 +1,8 @@
-class ApiController < ActionController::API
+class ApiController < ActionController::Base
   include DeviseTokenAuth::Concerns::SetUserByToken
   include BaseApi
   include Response
+  protect_from_forgery unless: -> { request.format.json? }
 
   rescue_from CanCan::AccessDenied do |exception|
     json_response :forbidden, {}, exception
@@ -12,10 +13,6 @@ class ApiController < ActionController::API
   end
 
   private
-
-  def check_auth_upload
-    render_authenticate_error unless current_api_v1_user
-  end
 
   def current_ability
     @current_ability ||= Ability.new(current_auth_resource, params)

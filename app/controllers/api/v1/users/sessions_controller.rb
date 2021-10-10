@@ -1,6 +1,6 @@
 class Api::V1::Users::SessionsController < DeviseTokenAuth::SessionsController
-  before_action :authenticate_api_v1_user!, only: [:destroy]
   wrap_parameters User, include: [:email, :password]
+  protect_from_forgery unless: -> { request.format.json? }
 
   def create
     raise ApiError::ErrorValidate unless resource_params[:email].present? && resource_params[:password].present?
@@ -18,22 +18,17 @@ class Api::V1::Users::SessionsController < DeviseTokenAuth::SessionsController
   end
 
   def destroy
-    client = @token.client
-    @token.clear!
-    unless current_api_v1_user && client && current_api_v1_user.tokens[client]
-      raise ApiError::ErrorSignOut
-    end
-
-    current_api_v1_user.tokens.delete(client)
-    current_api_v1_user.save!
+    user = User.find_by(uid: resource_params[:uid])
+    user.tokens = nil
+    user.save!
     json_response(:no_content)
   end
 
   private
   def resource_params
-    params.permit(*params_for_resource(:sign_in), :client_id)
+    params.permit(*params_for_resource(:sign_in), :client, :uid)
   end
-
+  
   def render_password_incorrect
     handle_error! I18n.t("model.user.sign_in.password_incorrect")
   end

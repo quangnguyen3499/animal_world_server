@@ -24,7 +24,6 @@ gem "devise"
 gem "rails-i18n"
 gem "pagy"
 gem "cancancan"
-gem "discard"
 gem "faker"
 gem "money"
 gem "wicked_pdf"
@@ -40,7 +39,7 @@ group :development, :test do
   gem "rails-erd"
 end
 
-group :development, :staging do
+group :development do
   gem "letter_opener_web", "~> 1.0"
 end
 

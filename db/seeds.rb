@@ -3,11 +3,19 @@ require 'database_cleaner'
 puts "Clean database"
 DatabaseCleaner.clean_with(:truncation)
 
-puts "Create places"
+puts "Create places & shops & coordinates"
 (1..10).each do |i|
-  Place.create! name: "place_#{i}", address: Faker::Address.city, longitude: Faker::Address.longitude,
-    latitude: Faker::Address.latitude, tel: "5555555555", url: 'www.example.com', status: i%2,
-    rating: 5, description: Faker::Lorem.paragraph
+  place = Place.new name: "place_#{i}", address: Faker::Address.city, tel: "5555555555", url: 'www.example.com', 
+    floor: i%4, description: Faker::Lorem.paragraph
+  place.save!
+    floor = place.floors.new name: "floor_#{i}"
+    floor.save!
+  #   shop = place.shops.new name: "shop_#{i}", place_id: place.id, url: 'www.example.com', description: Faker::Lorem.paragraph,
+  #     floor_id: Random.new.rand(0..place.floor)
+  #   shop.save! do
+  #     shop.markers.create! shop_id: shop.id, longitude: Faker::Address.longitude, latitude: Faker::Address.latitude
+  #   end
+  # end
 end
 
 puts "Create users"
@@ -18,12 +26,9 @@ User.create! first_name: "first", last_name: "last", email: "admin@example.com",
     role: :client, password: "abcd1234"
 end
 
-puts "Create animals"
+puts "Create markers"
 (1..10).each do |i|
-  Animal.create! name: [
-    Faker::Creature::Animal.name, Faker::Creature::Bird.common_name, Faker::Creature::Cat.name, 
-    Faker::Creature::Dog.name, Faker::Creature::Horse.name
-  ].sample, typical: i%5, quantity: i*1000, description: Faker::Lorem.paragraph
+  Marker.create! pair_name: "a#{rand(1..10)},a#{rand(1..10)}"
 end
 
 puts "Done! Please login with [ #{User.first.email} | abcd1234 ]."

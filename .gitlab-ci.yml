@@ -3,7 +3,7 @@ image: node:9-alpine
 stages:
   - deploy
 
-deploy-staging:
+deploy-production:
   image: ruby:latest
   stage: deploy
   script:

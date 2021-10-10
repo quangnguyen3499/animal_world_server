@@ -5,12 +5,12 @@ ActiveAdmin.register Place do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :address, :tel, :url, :rating, :status, :longitude, :latitude, :description, :images => []
+  permit_params :name, :address, :tel, :url, :longitude, :latitude, :description, :images => []
   #
   # or
   #
   # permit_params do
-  #   permitted = [:name, :address, :tel, :url, :rating, :status, :longitude, :latitude, :description, :discarded_at]
+  #   permitted = [:name, :address, :tel, :url, :longitude, :latitude, :description]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
@@ -21,12 +21,9 @@ ActiveAdmin.register Place do
       f.input :address
       f.input :tel
       f.input :url
-      f.input :rating
-      f.input :status
-      f.input :longitude
-      f.input :latitude
       f.input :description
       f.input :images, as: :file, input_html: { multiple: true }
+      f.actions
     end
   end
 
@@ -37,10 +34,6 @@ ActiveAdmin.register Place do
     column :address
     column :tel
     column :url
-    column :rating
-    column :status
-    column :longitude
-    column :latitude
     column :description
     actions
   end

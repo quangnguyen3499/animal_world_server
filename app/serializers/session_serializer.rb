@@ -16,7 +16,7 @@ class SessionSerializer < ApplicationSerializer
     {
       uid: object.uid,
       token: token.token,
-      client_id: token.client,
+      client: token.client,
       expiry: token.expiry
     }
   end
