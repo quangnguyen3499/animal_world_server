@@ -41,6 +41,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       t.string :first_name
       t.string :last_name
       t.integer :role, :limit => 1 #tinyint
+      t.string :url_avatar
 
       ## Tokens
       t.text :tokens

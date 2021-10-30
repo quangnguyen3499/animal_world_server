@@ -7,6 +7,7 @@ class CreateShops < ActiveRecord::Migration[6.0]
       t.integer :category_id
       t.integer :place_id
       t.integer :floor_id
+      t.string :url_logo
 
       t.timestamps
     end

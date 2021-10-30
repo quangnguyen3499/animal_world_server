@@ -5,7 +5,8 @@ ActiveAdmin.register Place do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :address, :tel, :url, :longitude, :latitude, :description, :images => []
+
+  permit_params :name, :address, :tel, :url, :longitude, :latitude, :description
   #
   # or
   #
@@ -22,7 +23,6 @@ ActiveAdmin.register Place do
       f.input :tel
       f.input :url
       f.input :description
-      f.input :images, as: :file, input_html: { multiple: true }
       f.actions
     end
   end
@@ -36,5 +36,16 @@ ActiveAdmin.register Place do
     column :url
     column :description
     actions
+  end
+
+  show do
+    attributes_table do
+      row :id
+      row :name
+      row :address
+      row :tel
+      row :url
+      row :description
+    end
   end
 end

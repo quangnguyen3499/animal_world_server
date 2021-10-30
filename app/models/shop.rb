@@ -6,6 +6,7 @@
 #  description :text(65535)
 #  name        :string(191)
 #  url         :string(191)
+#  url_logo    :string(191)
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  category_id :integer

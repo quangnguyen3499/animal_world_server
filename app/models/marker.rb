@@ -6,5 +6,4 @@
 #  pair_name :string(191)
 #
 class Marker < ApplicationRecord
-  belongs_to :direction
 end

@@ -1,14 +1,9 @@
-class Api::V1::PlacesController < Api::V1::BaseController  
+class Api::V1::PlacesController < Api::V1::BaseController
+  before_action :load_place, except: :index
+  
   def index
-    full_places = Place.latest
-    places = if filtering_params.present?
-              full_places&.filter_by(filtering_params)
-            else
-              full_places
-            end
-    metadata, paginated_items = pagy(places, page: params[:page], items: params[:itemsPerPage])
-    json_response :ok, paginate_data(PlaceSerializer, paginated_items, metadata),
-                  I18n.t("actions.success")
+    places = Place.latest.includes(:floors)
+    json_response :ok, serialize_data(PlaceSerializer, places), I18n.t("actions.success")
   end
 
   def create
@@ -24,9 +19,8 @@ class Api::V1::PlacesController < Api::V1::BaseController
   end
 
   def update
-    place = Place.first
-    place.update! update_params
-    json_response :ok, serialize_data(PlaceSerializer, place), I18n.t("action.success")
+    data = @place.update! update_params
+    json_response :ok, serialize_data(PlaceSerializer, data), I18n.t("action.success")
   end
   
   def destroy

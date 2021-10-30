@@ -15,6 +15,7 @@
 #  role                   :integer
 #  tokens                 :text(65535)
 #  uid                    :string(191)      default(""), not null
+#  url_avatar             :string(191)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
