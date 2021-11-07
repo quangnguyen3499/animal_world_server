@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2021_10_22_114342) do
     t.string "url"
     t.string "url_thumbnail"
     t.string "url_images"
+    t.string "url_floors"
     t.integer "floor"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false

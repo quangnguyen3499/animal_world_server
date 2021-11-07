@@ -9,6 +9,7 @@
 #  name          :string(191)
 #  tel           :string(191)
 #  url           :string(191)
+#  url_floors    :string(191)
 #  url_images    :string(191)
 #  url_thumbnail :string(191)
 #  created_at    :datetime         not null
