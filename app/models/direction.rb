@@ -11,5 +11,5 @@
 #  index_directions_on_marker_id  (marker_id)
 #
 class Direction < ApplicationRecord
-  has_one :marker
+  belongs_to :marker
 end

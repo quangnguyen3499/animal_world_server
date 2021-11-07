@@ -6,7 +6,6 @@ class Api::V1::StatisticsController < Api::V1::BaseController
   # end
 
   def update
-    # nodes = [["a", "b", 5], ["a", "n"]]
     nodes = JSON.parse resource_params[:node_params]
     @statistic.update!(nodes: nodes)
     json_response :ok, serialize_data(StatisticSerializer, @statistic), I18n.t("action.success")
@@ -23,6 +22,10 @@ class Api::V1::StatisticsController < Api::V1::BaseController
       target: path_params[:target]
     ).perform!
     json_response :ok, graph, I18n.t("action.success")
+
+    # exp: 
+    # source: "a1"
+    # target: "a2"
   end
   
   private

@@ -7,6 +7,7 @@ class CreatePlaces < ActiveRecord::Migration[6.0]
       t.string :url
       t.string :url_thumbnail
       t.string :url_images
+      t.string :url_floors
       t.integer :floor
       t.text :description
 
