@@ -19,6 +19,7 @@ places.each do |p|
       shop = place.shops.new name: "shop_#{i}", place_id: place.id, url: 'www.example.com', 
         description: Faker::Lorem.paragraph, floor_id: Random.new.rand(0..place.floor),
         category_id: "#{i}", url_logo: "/logo/#{i}"
+      floor.statistics.create! nodes: ["a1", "a2", "a3", "a4"], graph: [["a1", "a2", 5], ["a1", "a4", 1]]
     end
 end
 
