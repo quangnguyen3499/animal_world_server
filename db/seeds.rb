@@ -24,10 +24,9 @@ places.each do |p|
 end
 
 puts "Create users"
-User.create! first_name: "first", last_name: "last", email: "admin@example.com",
-  role: :admin, password: "abcd1234"
+User.create! username: "admin", email: "admin@example.com", role: :admin, password: "abcd1234"
 (1..10).each do |i|
-  User.create! first_name: "client_#{i}", last_name: "last_#{i}", email: "client_#{i}@example.com",
+  User.create! username: "client_#{i}", email: "client_#{i}@example.com",
     role: :client, password: "abcd1234"
 end
 

@@ -3,8 +3,7 @@ class SessionSerializer < ApplicationSerializer
     {
       id: object.id,
       email: object.email,
-      first_name: object.first_name,
-      last_name: object.last_name,
+      username: object.username,
       role: object.role,
       created_at: object.created_at.strftime("%d/%m/%Y"),
       updated_at: object.updated_at.strftime("%d/%m/%Y")

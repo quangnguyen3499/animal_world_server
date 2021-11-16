@@ -6,8 +6,6 @@
 #  allow_password_change  :boolean          default(FALSE)
 #  email                  :string(191)      default(""), not null
 #  encrypted_password     :string(191)      default(""), not null
-#  first_name             :string(191)
-#  last_name              :string(191)
 #  provider               :string(191)      default("email"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -16,6 +14,7 @@
 #  tokens                 :text(65535)
 #  uid                    :string(191)      default(""), not null
 #  url_avatar             :string(191)
+#  username               :string(191)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -30,8 +29,7 @@ class UserSerializer < ApplicationSerializer
     {
       id: object.id,
       email: object.email,
-      first_name: object.first_name,
-      last_name: object.last_name,
+      username: object.username,
       role: object.role,
       created_at: object.created_at.strftime("%d/%m/%Y"),
       updated_at: object.updated_at.strftime("%d/%m/%Y")

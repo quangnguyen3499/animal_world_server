@@ -87,8 +87,7 @@ ActiveRecord::Schema.define(version: 2021_10_22_114342) do
     t.datetime "reset_password_sent_at"
     t.boolean "allow_password_change", default: false
     t.datetime "remember_created_at"
-    t.string "first_name"
-    t.string "last_name"
+    t.string "username"
     t.integer "role", limit: 1
     t.string "url_avatar"
     t.text "tokens"

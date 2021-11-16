@@ -38,8 +38,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.0]
       # t.datetime :locked_at
 
       ## User Info
-      t.string :first_name
-      t.string :last_name
+      t.string :username
       t.integer :role, :limit => 1 #tinyint
       t.string :url_avatar
 

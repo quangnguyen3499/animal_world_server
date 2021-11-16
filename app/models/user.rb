@@ -6,8 +6,6 @@
 #  allow_password_change  :boolean          default(FALSE)
 #  email                  :string(191)      default(""), not null
 #  encrypted_password     :string(191)      default(""), not null
-#  first_name             :string(191)
-#  last_name              :string(191)
 #  provider               :string(191)      default("email"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
@@ -16,6 +14,7 @@
 #  tokens                 :text(65535)
 #  uid                    :string(191)      default(""), not null
 #  url_avatar             :string(191)
+#  username               :string(191)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -36,7 +35,7 @@ class User < ApplicationRecord
 
   before_validation :sync_uid
 
-  validates :first_name, :last_name, presence: true, length: {maximum: 100}
+  validates :username, presence: true, length: {maximum: 100}
   validates :email, presence: true, format: {with: Settings.regx.email_rule}
   validates :email, uniqueness: {scope: :provider, case_sensitive: false}
   validates :role, presence: true

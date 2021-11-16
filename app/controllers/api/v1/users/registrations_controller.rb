@@ -7,8 +7,7 @@ class Api::V1::Users::RegistrationsController < DeviseTokenAuth::RegistrationsCo
   def create
     @resource = User.find_or_initialize_by email: sign_up_params[:email]
     @resource.assign_attributes(
-      first_name: "first_name " + sign_up_params[:username],
-      last_name: sign_up_params[:username],
+      username: "username " + sign_up_params[:username],
       role: :client,
       password: sign_up_params[:password]
     )

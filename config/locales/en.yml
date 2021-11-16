@@ -17,8 +17,7 @@
         postcode: "postcode"
         tel: "phone number"
       user:
-        first_name: "first name"
-        last_name: "last name"
+        username: "username"
         password: "password"
         email: "email"
         role: "role"
