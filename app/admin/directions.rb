@@ -5,7 +5,7 @@ ActiveAdmin.register Direction do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :marker_id, :direct
+  permit_params :marker_id, :direct
   #
   # or
   #

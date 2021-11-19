@@ -5,7 +5,6 @@
 #  id        :bigint           not null, primary key
 #  latitude  :bigint
 #  longitude :bigint
-#  name      :string(191)
 #  shop_id   :integer
 #
 # Indexes

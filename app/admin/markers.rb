@@ -5,7 +5,7 @@ ActiveAdmin.register Marker do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :pair_name
+  permit_params :pair_name
   #
   # or
   #

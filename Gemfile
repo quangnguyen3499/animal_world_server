@@ -29,6 +29,7 @@ gem "money"
 gem "wicked_pdf"
 gem "activeadmin"
 gem "wdm", ">= 0.1.0", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "roo"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

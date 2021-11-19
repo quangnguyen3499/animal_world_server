@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2021_10_22_114342) do
 
   create_table "coordinates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "shop_id"
-    t.string "name"
     t.bigint "longitude"
     t.bigint "latitude"
     t.index ["shop_id"], name: "index_coordinates_on_shop_id"
@@ -61,7 +60,6 @@ ActiveRecord::Schema.define(version: 2021_10_22_114342) do
     t.integer "category_id"
     t.integer "place_id"
     t.integer "floor_id"
-    t.string "url_logo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_shops_on_category_id"

@@ -3,7 +3,7 @@ class Api::V1::ShopsController < Api::V1::BaseController
   before_action :load_floor
   
   def index
-    shops = @floor.shops
+    shops = @floor.shops.includes(:coordinate)
     json_response :ok, serialize_data(ShopSerializer, shops), I18n.t("actions.success")
   end
 
