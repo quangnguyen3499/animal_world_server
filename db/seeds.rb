@@ -3,7 +3,12 @@ require 'database_cleaner'
 puts "Clean database"
 DatabaseCleaner.clean_with(:truncation)
 
-puts "Create places & floors & coordinates"
+puts "Create floors"
+(1..10).each do |f|
+  Floor.create! name: "#{f}"
+end
+
+puts "Create places & coordinates"
 places = JSON.parse(File.read(Rails.root.join('db/seed/place.json')))
 
 places.each do |p|
@@ -14,22 +19,12 @@ places.each do |p|
 
   place.save!
     (1..place.floor).each do |i|
-      floor = place.floors.new name: "#{i}"
-      floor.save!
-      floor.statistics.create! nodes: ["a1", "a2", "a3", "a4"], graph: [["a1", "a2", 5], ["a1", "a4", 1]]
+      place.statistics.create! floor_id: i, nodes: ["a1", "a2", "a3", "a4"], graph: [["a1", "a2", 5], ["a1", "a4", 1]]
     end
 end
 
 puts "Create categories"
 Category.create! [{name: "Mua sắm"}, {name: "Ăn uống"}, {name: "Giải trí"}, {name: "Khác"}]
-
-puts "Create shops"
-shops = JSON.parse(File.read(Rails.root.join('db/seed/shop.json')))
-shops.each do |s|
-  Shop.create! name: s['name'], url: s['url'], description: s['description'], category_id: s['category_id'],
-    place_id: s['place_id'], floor_id: s['floor_id']
-  Coordinate.create! shop_id: s['id'], longitude: s['longitude'], latitude: s['latitude']
-end
 
 puts "Create users"
 User.create! username: "admin", email: "admin@example.com", role: :admin, password: "abcd1234"
@@ -43,5 +38,8 @@ puts "Create directions & markers"
   marker = Marker.create! pair_name: "a#{rand(1..10)},a#{rand(1..10)}"
   marker.create_direction direct: "100 200"
 end
+
+puts "Create shops & coordinates"
+Rake::Task['import:data'].invoke
 
 puts "Done! Please login with [ #{User.first.email} | abcd1234 ]."

@@ -21,7 +21,6 @@ class Place < ApplicationRecord
 
   has_many :statistics
   has_many :shops
-  has_many :floors
   
   validates :name, uniqueness: true
   validates :address, :tel, :url, presence: true

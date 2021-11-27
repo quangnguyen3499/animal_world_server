@@ -2,7 +2,7 @@ class Api::V1::PlacesController < Api::V1::BaseController
   before_action :load_place, except: :index
   
   def index
-    places = Place.latest.includes(:floors)
+    places = Place.latest
     json_response :ok, serialize_data(PlaceSerializer, places), I18n.t("actions.success")
   end
 

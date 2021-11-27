@@ -1,9 +1,8 @@
 class Api::V1::ShopsController < Api::V1::BaseController  
   before_action :load_place
-  before_action :load_floor
   
   def index
-    shops = @floor.shops.includes(:coordinate)
+    shops = Shop.where(floor_id: params[:floor_id]).includes(:coordinate)
     json_response :ok, serialize_data(ShopSerializer, shops), I18n.t("actions.success")
   end
 
@@ -45,9 +44,5 @@ class Api::V1::ShopsController < Api::V1::BaseController
 
   def load_place
     @place = Place.find(params[:place_id])
-  end
-
-  def load_floor
-    @floor = @place.floors.find(params[:floor_id])
   end
 end

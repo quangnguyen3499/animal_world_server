@@ -30,9 +30,7 @@ ActiveRecord::Schema.define(version: 2021_10_22_114342) do
   end
 
   create_table "floors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.integer "place_id"
     t.string "name"
-    t.index ["place_id"], name: "index_floors_on_place_id"
   end
 
   create_table "markers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -55,13 +53,10 @@ ActiveRecord::Schema.define(version: 2021_10_22_114342) do
 
   create_table "shops", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
-    t.string "url"
     t.text "description"
     t.integer "category_id"
     t.integer "place_id"
     t.integer "floor_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["category_id"], name: "index_shops_on_category_id"
     t.index ["floor_id"], name: "index_shops_on_floor_id"
     t.index ["place_id"], name: "index_shops_on_place_id"

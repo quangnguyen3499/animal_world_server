@@ -20,8 +20,11 @@ class PlaceSerializer < ApplicationSerializer
              :created_at, :updated_at
   
   attribute :floor_list do |object|
-    data = object.floors.pluck(:id, :name).map {
-      |id, name| {floor_id: id, floor_name: name}
+    Floor.first(object.floor).map{ |f|
+      {
+        floor_id: f.id,
+        floor_name: f.name
+      }
     }
   end
 end

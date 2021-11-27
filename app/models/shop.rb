@@ -5,9 +5,6 @@
 #  id          :bigint           not null, primary key
 #  description :text(65535)
 #  name        :string(191)
-#  url         :string(191)
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
 #  category_id :integer
 #  floor_id    :integer
 #  place_id    :integer
@@ -23,5 +20,5 @@ class Shop < ApplicationRecord
   belongs_to :category
   has_one :coordinate
 
-  ATTR = [:description, :name, :url]
+  ATTR = [:description, :name]
 end
