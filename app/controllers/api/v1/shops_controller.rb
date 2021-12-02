@@ -2,7 +2,7 @@ class Api::V1::ShopsController < Api::V1::BaseController
   before_action :load_place
   
   def index
-    shops = Shop.where(floor_id: params[:floor_id]).includes(:coordinate)
+    shops = @place.shops.where(floor_id: params[:floor_id]).includes(:coordinate)
     json_response :ok, serialize_data(ShopSerializer, shops), I18n.t("actions.success")
   end
 
@@ -11,17 +11,17 @@ class Api::V1::ShopsController < Api::V1::BaseController
     raise ApiError::RecordNotUnique unless shop.new_record?
 
     shop.save!
-    json_response :ok, serialize_data(ShopSerializer, shop), I18n.t("action.success")
+    json_response :ok, serialize_data(ShopSerializer, shop), I18n.t("actions.success")
   end
   
   def show
-    json_response :ok, serialize_data(ShopSerializer, @shop), I18n.t("action.success")
+    json_response :ok, serialize_data(ShopSerializer, @shop), I18n.t("actions.success")
   end
 
   def update
     shop = Shop.first
     shop.update! update_params
-    json_response :ok, serialize_data(ShopSerializer, shop), I18n.t("action.success")
+    json_response :ok, serialize_data(ShopSerializer, shop), I18n.t("actions.success")
   end
   
   def destroy

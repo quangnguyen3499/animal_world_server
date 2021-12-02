@@ -1,4 +1,4 @@
 require 'pagy/extras/overflow'
 
-Pagy::VARS[:items] = Settings.pagy.items
-Pagy::VARS[:overflow] = :empty_page
+Pagy::DEFAULT[:items] = Settings.pagy.items
+Pagy::DEFAULT[:overflow] = :empty_page

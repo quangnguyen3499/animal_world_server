@@ -6,7 +6,8 @@ ActiveAdmin.register Shop do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :name, :url, :description, :floor_id, :place_id
-  
+  config.sort_order = "id_asc"
+
   form do |f|
     f.inputs do
       f.input :name

@@ -9,22 +9,11 @@
     "url_images": "/place/coopmartDN/images",
     "url_floors": "place/coopmartDN/floormap",
     "floor": 4,
-    "description": "Dịch vụ mua sắm, nhận hàng tại cửa hàng và giao hàng tận nơi"
+    "description": "Dịch vụ mua sắm, nhận hàng tại cửa hàng và giao hàng tận nơi",
+    "city_id": 1
   },
   {
     "id": 2,
-    "name": "Bảo tàng Mỹ thuật Đà Nẵng",
-    "address": "78 Đ. Lê Duẩn, Thạch Thang, Hải Châu, Đà Nẵng 550000",
-    "tel": "0236 3865 663",
-    "url": "https://www.taidanang.com/bao-tang-my-thuat-da-nang/",
-    "url_thumbnail": "/thumbnail/artmuseumDN.jpg",
-    "url_images": "/place/artmuseumDN/images",
-    "url_floors": "place/artmuseumDN/floormap",
-    "floor": 3,
-    "description": "Bảo tàng mỹ thuật trưng bày tranh, tác phẩm điêu khắc, gốm sứ, v.v. trong không gian hiện đại với quán cà phê"
-  },
-  {
-    "id": 3,
     "name": "Big C Đà Nẵng",
     "address": "Khu thương Mại, 257 Hùng Vương, Vĩnh Trung, Thanh Khê, Đà Nẵng 550000",
     "tel": "0236 3865 663",
@@ -32,19 +21,8 @@
     "url_thumbnail": "/thumbnail/bigcDN.jpg",
     "url_images": "/place/bigcDN/images",
     "url_floors": "place/bigcDN/floormap",
-    "floor": 2,
-    "description": "Dịch vụ mua sắm, nhận hàng tại cửa hàng và giao hàng tận nơi"
-  },
-  {
-    "id": 4,
-    "name": "Bảo tàng Đà Nẵng",
-    "address": "24 Đ. Trần Phú, Thạch Thang, Hải Châu, Đà Nẵng 550000",
-    "tel": "0236 3886 236",
-    "url": "http://baotangdanang.vn/",
-    "url_thumbnail": "/thumbnail/museumDN.jpg",
-    "url_images": "/place/museumDN/images",
-    "url_floors": "place/museumDN/floormap",
     "floor": 3,
-    "description": "Bảo tàng lịch sử Đà Nẵng, trưng bày các hiện vật văn hóa quân sự trong không gian hiện đại."
+    "description": "Dịch vụ mua sắm, nhận hàng tại cửa hàng và giao hàng tận nơi",
+    "city_id": 1
   }
 ]

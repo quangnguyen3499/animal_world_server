@@ -11,16 +11,16 @@ class Api::V1::PlacesController < Api::V1::BaseController
     raise ApiError::RecordNotUnique unless place.new_record?
 
     place.save!
-    json_response :ok, serialize_data(PlaceSerializer, place), I18n.t("action.success")
+    json_response :ok, serialize_data(PlaceSerializer, place), I18n.t("actions.success")
   end
   
   def show
-    json_response :ok, serialize_data(PlaceSerializer, @place), I18n.t("action.success")
+    json_response :ok, serialize_data(PlaceSerializer, @place), I18n.t("actions.success")
   end
 
   def update
     data = @place.update! update_params
-    json_response :ok, serialize_data(PlaceSerializer, data), I18n.t("action.success")
+    json_response :ok, serialize_data(PlaceSerializer, data), I18n.t("actions.success")
   end
   
   def destroy

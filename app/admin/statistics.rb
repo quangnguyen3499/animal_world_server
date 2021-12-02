@@ -5,7 +5,9 @@ ActiveAdmin.register Statistic do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :floor_id, :place_id, :nodes
+  permit_params :floor_id, :place_id, :graph
+  config.sort_order = "id_asc"
+
   #
   # or
   #

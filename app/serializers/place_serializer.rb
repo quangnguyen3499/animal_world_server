@@ -14,6 +14,11 @@
 #  url_thumbnail :string(191)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  city_id       :integer
+#
+# Indexes
+#
+#  index_places_on_city_id  (city_id)
 #
 class PlaceSerializer < ApplicationSerializer
   attributes :id, :name, :address, :floor, :tel, :url, :description, 

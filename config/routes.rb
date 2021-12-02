@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :floors
       resources :markers
       resources :places
+      resources :cities
       get "/shortest_path", to: "statistics#find_shortest_path"
     end
   end

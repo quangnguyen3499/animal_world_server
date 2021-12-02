@@ -14,11 +14,17 @@
 #  url_thumbnail :string(191)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  city_id       :integer
+#
+# Indexes
+#
+#  index_places_on_city_id  (city_id)
 #
 class Place < ApplicationRecord  
   ATTR = [:name, :address, :tel, :url, :description]
   FILTERING_PARAM = [:name, :address]
 
+  belongs_to :city
   has_many :statistics
   has_many :shops
   

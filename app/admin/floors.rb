@@ -6,6 +6,8 @@ ActiveAdmin.register Floor do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :name
+  config.sort_order = "id_asc"
+
   #
   # or
   #

@@ -6,6 +6,8 @@ ActiveAdmin.register Marker do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :pair_name
+  config.sort_order = 'id_asc'
+
   #
   # or
   #

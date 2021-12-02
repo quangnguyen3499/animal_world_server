@@ -7,6 +7,8 @@ ActiveAdmin.register Place do
   #
 
   permit_params :name, :address, :tel, :url, :longitude, :latitude, :description
+  config.sort_order = "id_asc"
+
   #
   # or
   #

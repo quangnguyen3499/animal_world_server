@@ -10,4 +10,6 @@ ActiveAdmin.register Coordinate do
   # or
   #
   permit_params :shop_id, :name, :longitude, :latitude
+  config.sort_order = "id_asc"
+
 end

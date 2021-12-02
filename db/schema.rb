@@ -10,9 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_22_114342) do
+ActiveRecord::Schema.define(version: 2021_12_07_092100) do
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "cities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
   end
 
@@ -25,8 +29,12 @@ ActiveRecord::Schema.define(version: 2021_10_22_114342) do
 
   create_table "directions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "marker_id"
+    t.integer "floor_id"
+    t.integer "place_id"
     t.text "direct"
+    t.index ["floor_id"], name: "index_directions_on_floor_id"
     t.index ["marker_id"], name: "index_directions_on_marker_id"
+    t.index ["place_id"], name: "index_directions_on_place_id"
   end
 
   create_table "floors", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -46,14 +54,15 @@ ActiveRecord::Schema.define(version: 2021_10_22_114342) do
     t.string "url_images"
     t.string "url_floors"
     t.integer "floor"
+    t.integer "city_id"
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_places_on_city_id"
   end
 
   create_table "shops", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
-    t.text "description"
     t.integer "category_id"
     t.integer "place_id"
     t.integer "floor_id"
@@ -65,8 +74,7 @@ ActiveRecord::Schema.define(version: 2021_10_22_114342) do
   create_table "statistics", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.integer "floor_id"
     t.integer "place_id"
-    t.string "nodes"
-    t.string "graph"
+    t.text "graph"
     t.index ["floor_id"], name: "index_statistics_on_floor_id"
     t.index ["place_id"], name: "index_statistics_on_place_id"
   end

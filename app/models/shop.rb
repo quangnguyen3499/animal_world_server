@@ -3,7 +3,6 @@
 # Table name: shops
 #
 #  id          :bigint           not null, primary key
-#  description :text(65535)
 #  name        :string(191)
 #  category_id :integer
 #  floor_id    :integer
@@ -18,6 +17,7 @@
 class Shop < ApplicationRecord
   belongs_to :floor
   belongs_to :category
+  belongs_to :place
   has_one :coordinate
 
   ATTR = [:description, :name]

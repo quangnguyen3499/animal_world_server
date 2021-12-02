@@ -9,9 +9,11 @@ class CreatePlaces < ActiveRecord::Migration[6.0]
       t.string :url_images
       t.string :url_floors
       t.integer :floor
+      t.integer :city_id
       t.text :description
 
       t.timestamps
     end
+    add_index :places, :city_id
   end
 end

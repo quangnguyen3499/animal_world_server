@@ -14,7 +14,8 @@ ActiveAdmin.register User do
     permitted << :other if params[:action] == 'create' && current_user.admin?
     permitted
   end
-  
+  config.sort_order = "id_asc"
+
   index do
     selectable_column
     column :id

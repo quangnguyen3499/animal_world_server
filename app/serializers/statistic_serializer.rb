@@ -3,8 +3,7 @@
 # Table name: statistics
 #
 #  id       :bigint           not null, primary key
-#  graph    :string(191)
-#  nodes    :string(191)
+#  graph    :text(65535)
 #  floor_id :integer
 #  place_id :integer
 #

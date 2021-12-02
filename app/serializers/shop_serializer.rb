@@ -3,7 +3,6 @@
 # Table name: shops
 #
 #  id          :bigint           not null, primary key
-#  description :text(65535)
 #  name        :string(191)
 #  category_id :integer
 #  floor_id    :integer
@@ -16,7 +15,7 @@
 #  index_shops_on_place_id     (place_id)
 #
 class ShopSerializer < ApplicationSerializer
-  attributes :id, :name, :description
+  attributes :id, :name
   attribute :coordinate do |object|
     data = object&.coordinate
     {

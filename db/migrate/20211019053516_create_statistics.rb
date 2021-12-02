@@ -3,8 +3,7 @@ class CreateStatistics < ActiveRecord::Migration[6.0]
     create_table :statistics do |t|
       t.integer :floor_id
       t.integer :place_id
-      t.string :nodes
-      t.string :graph
+      t.text :graph
     end
 
     add_index :statistics, :floor_id
