@@ -1,5 +1,8 @@
 ActiveAdmin.register Shop do
-
+  filter :name
+  filter :place_id
+  filter :floor_id
+  filter :category
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
   #
