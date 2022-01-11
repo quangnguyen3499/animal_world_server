@@ -23,9 +23,7 @@ places = JSON.parse(File.read(Rails.root.join('db/seed/place.json')))
 
 places.each do |p|
   Place.create! name: p['name'], address: p['address'], tel: p['tel'], 
-    url: p['url'], floor: p['floor'], description: p['description'],
-    url_thumbnail: p['url_thumbnail'], url_images: p['url_images'],
-    url_floors: p['url_floors'], city_id: p['city_id']
+    url: p['url'], floor: p['floor'], description: p['description'], city_id: p['city_id']
 end
 
 puts "Create categories"
@@ -39,6 +37,6 @@ User.create! username: "admin", email: "admin@example.com", role: :admin, passwo
 end
 
 puts "Create shops, coordinates, markers & directions"
-# Rake::Task['import:data'].invoke
+Rake::Task['import:data'].invoke
 
 puts "Done! Please login with [ #{User.first.email} | abcd1234 ]."

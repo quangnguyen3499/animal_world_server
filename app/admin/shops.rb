@@ -8,14 +8,14 @@ ActiveAdmin.register Shop do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :name, :url, :description, :floor_id, :place_id
+  permit_params :name, :floor_id, :place_id
   config.sort_order = "id_asc"
 
   form do |f|
     f.inputs do
       f.input :name
-      f.input :url
-      f.input :description
+      f.input :floor_id
+      f.input :place_id
       f.actions
     end
   end
@@ -24,8 +24,8 @@ ActiveAdmin.register Shop do
     selectable_column
     column :id
     column :name
-    column :url
-    column :description
+    column :floor_id
+    column :place_id
     actions
   end
 
@@ -33,8 +33,8 @@ ActiveAdmin.register Shop do
     attributes_table do
       row :id
       row :name
-      row :url
-      row :description
+      row :floor_id
+      row :place_id
     end
   end
 end

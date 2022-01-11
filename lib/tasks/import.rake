@@ -3,7 +3,7 @@ require 'database_cleaner'
 
 namespace :import do
   desc "Import shop & coordinate from spreadsheet"
-  task data: :environment do  
+  task data: :environment do
     puts "Clean shop, coordinate, statistic & direction"
     Shop.destroy_all
     Coordinate.destroy_all
